@@ -1,0 +1,420 @@
+%%% Focal Image 
+%% Class for OUP journal BIOINFORMATICS
+%% Filename: bioinformaticstitle.sty
+%%-----------------------------------------------------------------
+%% Oct 20, 1999/ ver. 1.0 
+%% 1. twocolumn implemented
+%% 2. \editorial macros added
+%% 3. Jan 7, 2000 , added in the thanks
+%%-----------------------------------------------------------------
+\NeedsTeXFormat{LaTeX2e}[1995/12/01]
+\ProvidesPackage{bioinformaticstitle}
+             [1999/10/20 ver. 1.0 Title Formatting for Bioinformatics]
+%  
+\def\premaketitleskip#1{\gdef\@premaketitleskip{#1}}
+\def\postmaketitleskip#1{\gdef\@postmaketitleskip{#1}}
+\def\titlealignment#1{\gdef\@titlejustification{#1}}
+\def\postitleskip#1{\gdef\@posttitleskip{#1}}
+\def\titleattrib#1{\gdef\@titleattrib{\reset@font#1}}
+\def\pretitlehskip#1{\gdef\@pretitlehskip{#1}}
+\def\posttitlehskip#1{\gdef\@posttitlehskip{#1}}
+\def\authoralignment#1{\gdef\@authorjustification{#1}}
+\def\authorblockattrib#1{\gdef\@authorattrib{\reset@font#1}}
+\def\lastauthorblockattrib#1{\gdef\@lastauthorattrib{\reset@font#1}}
+\def\postauthorblockskip#1{\gdef\@postauthorskip{#1}}
+\def\preauthorblockhskip#1{\gdef\@preauthorhskip{#1}}
+\def\postauthorblockhskip#1{\gdef\@postauthorhskip{#1}}
+\def\addressalignment#1{\gdef\@addressjustification{#1}}
+\def\addressblockattrib#1{\gdef\@addressattrib{\reset@font#1}}
+\def\postaddressblockskip#1{\gdef\@postaddressskip{#1}}
+\def\preaddressblockhskip#1{\gdef\@preaddresshskip{#1}}
+\def\postaddressblockhskip#1{\gdef\@postaddresshskip{#1}}
+\def\titletype#1{\def\@titletype{#1}}
+\newtoks\pgstyle 
+\pgstyle{title}
+\premaketitleskip{-16pt} % 
+\postmaketitleskip{1.5pc}%
+\titlealignment{\raggedright}
+\postitleskip{10pt}
+\titleattrib{\sffamily\titlefont\bfseries\itshape}
+\pretitlehskip{10.5pc}
+\posttitlehskip{0pt}
+\authoralignment{\raggedright}
+\authorblockattrib{\authorfont}
+\postauthorblockskip{13pt}
+\preauthorblockhskip{10.5pc}
+\postauthorblockhskip{0pt}
+\addressalignment{\raggedright}
+\addressblockattrib{\addressfont}
+\postaddressblockskip{8pt}
+\preaddressblockhskip{10.5pc}
+\postaddressblockhskip{0pt}
+%
+\def\@FNsymbol#1{\ifcase#1\ensuremath{*}\or
+     \ensuremath{\dagger}\or
+     \ensuremath{\ddagger}\or
+     \ensuremath{\mathsection}\or
+     \ensuremath{\mathparagraph}\or
+     \ensuremath{{\|}}\or
+     \ensuremath{{**}}\or
+     \ensuremath{{\dagger\dagger}}\or
+     \ensuremath{{\ddagger\ddagger}}\or
+     \ensuremath{{\mathsection\mathsection}}\or
+     \ensuremath{{\mathparagraph\mathparagraph}}
+     \else\@ctrerr\fi%
+}
+\def\titAuthorPattern{pfnm,pinit,psnm}%
+%
+\def\title#1{\def\@title{#1}}
+\def\style{0}%
+\def\Sup#1{\def\@Sup{#1}}%
+\def\StarAndNumbers#1{\def\@StarAndNumbers{#1}}%
+\def\gobbleSup#1{\def\@gobbleSup{#1}}%
+\def\Fnsymbol#1{\def\@Fnsymbol{#1}}%
+%
+\Sup{1}%
+\StarAndNumbers{0}
+\gobbleSup{0}%
+\Fnsymbol{0}%
+%
+\newcounter{iCtr}
+\newcounter{supControl@Ctr}%
+\newcounter{supCtr}
+\newcounter{tmpCtr}
+\newcounter{supLenCtr}
+\newcounter{footCtr}
+\newcounter{penultimateAuthor@Ctr}
+\newcounter{lastAuthor@Ctr}
+\newcounter{penultimateAddress@Ctr}
+\newcounter{lastAddress@Ctr}
+\newcounter{titAuthor@Ctr}%
+\newcounter{titInit@Ctr}%
+\newcounter{titFnm@Ctr}%
+\newcounter{titSnm@Ctr}%
+\newcounter{titAddress@Ctr}%
+\setcounter{titAddress@Ctr}{1}%
+\newcounter{titAddressControl@Ctr}%
+\newcounter{titAuthorControl@Ctr}%
+\newcounter{thanks@Ctr}%
+
+\def\@ign{\@ifnextchar\space{\@gobble}{\relax}}%
+\def\authorsep{$\!$\unskip,\ }%
+\def\authorcon{\unskip,\ }%
+\def\authorstop{\unskip,\ }%
+\def\penultimateAuthorSep{\space and\space}%
+\def\lastAuthorStop{}%
+\def\addressSep{\unskip,\space}
+\def\addressStop{}
+\def\penultimateAddressSep{\space{}and\space}%
+%
+\def\pinitsep{\unskip\space}%
+\def\psnmsep{\unskip }%
+\def\pfnmsep{\unskip\space}%
+\def\paddsep{,}%
+\def\paddstop{}
+\def\receivedsep{;}
+\def\revisedsep{;}
+%
+\let\oldfootnotemark\footnotemark
+\def\footnotemark[#1]{\expandafter\ifx\csname FN\thetitAuthor@Ctr\thefootCtr%
+	\endcsname%
+	\relax\expandafter\edef\csname FN\thetitAuthor@Ctr\thefootCtr\endcsname{#1}\fi
+	\expandafter\edef\csname FNLEN\thetitAuthor@Ctr\endcsname{\thefootCtr}
+	\stepcounter{footCtr}
+}
+\def\@FNsymbol#1{\ifcase#1\ensuremath{*}\or
+     \ensuremath{\dagger}\or
+     \ensuremath{\ddagger}\or
+     \ensuremath{\mathsection}\or
+     \ensuremath{\mathparagraph}\or
+     \ensuremath{{\|}}\or
+     \ensuremath{{**}}\or
+     \ensuremath{{\dagger\dagger}}\or
+     \ensuremath{{\ddagger\ddagger}}\or
+     \ensuremath{{\mathsection\mathsection}}\or
+     \ensuremath{{\mathparagraph\mathparagraph}}
+     \else\@ctrerr\fi%
+}
+\def\@THANKS{%
+	\expandafter\ifx\csname FNLEN\thetitAuthorControl@Ctr%
+		\endcsname\relax\edef\len{-1}\else%
+		\def\len{\csname FNLEN\thetitAuthorControl@Ctr\endcsname}%
+	\fi%
+	\setcounter{supLenCtr}{\len}%
+	\setcounter{thanks@Ctr}{\len}%
+	\stepcounter{supLenCtr}%
+	\setcounter{supCtr}{0}%
+	\ifnum\@StarAndNumbers=0%
+	\textsuperscript{\ifnum\@Sup=0\thinspace\fi\ifnum\@Sup=1%
+	\ifnum\thethanks@Ctr<0\else,\fi\fi}%
+		\loop\ifnum\thesupCtr<\thesupLenCtr%
+			\setcounter{tmpCtr}{\csname FN%
+			\thetitAuthorControl@Ctr\thesupCtr\endcsname}%
+			\textsuperscript{\@FNsymbol{\thetmpCtr}%
+			\ifnum\thesupCtr<\thethanks@Ctr,\fi\ignorespaces}%
+		\stepcounter{supCtr}%
+		\repeat%
+	\else%
+	\textsuperscript{\ifnum\@Sup=0\thinspace\fi\ifnum\@Sup=1%
+	\ifnum\thethanks@Ctr<0\else,\fi\fi}%
+		\loop\ifnum\thesupCtr<\thesupLenCtr%
+				\setcounter{tmpCtr}{\csname FN%
+				\thetitAuthorControl@Ctr\thesupCtr\endcsname}%
+				\ifnum\thetmpCtr=0%
+					\textsuperscript{\@FNsymbol{\thetmpCtr}}%
+				\else%
+					\textsuperscript{\thetmpCtr}%
+				\fi
+			\textsuperscript{\ifnum\thesupCtr<\thethanks@Ctr,\fi\ignorespaces}%
+		\stepcounter{supCtr}%
+	\repeat%
+	\fi
+}
+%
+\def\pinit#1{%
+	\expandafter\def\csname @pinit\thetitInit@Ctr\endcsname{\uppercase{#1}}%
+	\stepcounter{titInit@Ctr}%
+}%
+\def\pfnm#1{%
+	\expandafter\def\csname @pfnm\thetitFnm@Ctr\endcsname{#1}%
+	\stepcounter{titFnm@Ctr}%
+}%
+\def\psnm#1{%
+  	\expandafter\def\csname @psnm\thetitSnm@Ctr\endcsname{#1}%
+ 	  \stepcounter{titSnm@Ctr}%
+}%
+\def\author{\@ifnextchar[{\Xauthor}{\Xauthor[]}}%
+%
+\def\Xauthor[#1]#2{#2\edef\LAB@L{#1}%
+	\setcounter{iCtr}{0}%
+	\@for\lab@l:=\LAB@L\do{%
+		\expandafter\edef\csname @AuthorLabel\thetitAuthor@Ctr%
+			\theiCtr\endcsname{\lab@l}%
+			\stepcounter{iCtr}%
+	}%
+	\setcounter{penultimateAuthor@Ctr}{\thetitAuthor@Ctr}%
+	\setcounter{lastAuthor@Ctr}{\thetitAuthor@Ctr}
+	\addtocounter{penultimateAuthor@Ctr}{-1}%
+	\expandafter\edef\csname @labelLength\thetitAuthor@Ctr\endcsname{\theiCtr}%
+	\stepcounter{titAuthor@Ctr}%
+	\setcounter{footCtr}{0}
+}
+%
+\def\address{\@ifnextchar[{\Xaddress}{\Xaddress[]}}%
+\def\Xaddress[#1]#2{%
+	\expandafter\def\csname @eachAddress\thetitAddress@Ctr\endcsname{#2}%
+	\expandafter\def\csname @addressLabel\thetitAddress@Ctr\endcsname{#1}%
+ 	\expandafter\ifx\csname #1@XX\endcsname\relax
+	\expandafter\edef\csname #1@XX\endcsname{\thetitAddress@Ctr}%
+  \fi
+  \setcounter{penultimateAddress@Ctr}{\thetitAddress@Ctr}%
+	\setcounter{lastAddress@Ctr}{\thetitAddress@Ctr}%
+	\addtocounter{penultimateAddress@Ctr}{-1}%
+	\stepcounter{titAddress@Ctr}%
+}
+\newlength\titlelength
+\setlength\titlelength{\textwidth}
+%\addtolength\titlelength{-2em}
+\addtolength\titlelength{-\@pretitlehskip}
+\addtolength\titlelength{-\@posttitlehskip}
+
+%
+\def\porgname#1{\ifx\#1\@empty\ignorespaces\else#1\paddsep\fi}%
+\def\porgdiv#1{\ifx\#1\@empty\ignorespaces\else#1\paddsep\fi}%
+\def\pstreet#1{\ifx\#1\@empty\ignorespaces\else#1\paddsep\fi}%
+\def\postcode#1{\ifx\#1\@empty\ignorespaces\else#1\paddsep\fi}%
+\def\pcity#1{\ifx\#1\@empty\ignorespaces\else#1\paddsep\fi}%
+\def\pstate#1{\ifx\#1\@empty\ignorespaces\else#1\paddsep\fi}%
+\def\pcnty#1{\ifx\#1\@empty\ignorespaces\else#1\protect\paddstop\fi}%
+\def\email#1{\ifx\#1\@empty\ignorespaces\else{\footnotesize\textit{E-mail}:~{#1}}\protect\paddstop\fi}%
+%
+\def\maketitle{\twocolumn[\@maketitle]}%
+ \def\@maketitle{%
+	\def\eachAuthor{%
+		\setcounter{titAuthorControl@Ctr}{0}%
+		\whiledo%
+			{\thetitAuthorControl@Ctr<\thetitAuthor@Ctr}{%
+			\expandafter\def\csname @eachAuthor\thetitAuthorControl@Ctr\endcsname{%
+				{\@for\stringTokens:=\titAuthorPattern\do{%
+					\ifthenelse{\equal{\stringTokens}{pinit}}%
+					{\csname @pinit\thetitAuthorControl@Ctr\endcsname\pinitsep\@ign}{}%
+					\ifthenelse{\equal{\stringTokens}{pfnm}}%
+					{\csname @pfnm\thetitAuthorControl@Ctr\endcsname\pfnmsep\@ign}{}% %
+					\ifthenelse{\equal{\stringTokens}{psnm}}%
+					{\csname @psnm\thetitAuthorControl@Ctr\endcsname\psnmsep\@ign}{}}%
+				}%
+			}%
+			\stepcounter{titAuthorControl@Ctr}%
+		}%
+	}%
+	%
+  %	CVR\null\addvspace{\@premaketitleskip}%
+ 	\null\vskip\@premaketitleskip%
+  %\begingroup
+	\setcounter{footnote}{0}%
+		\def\AuthorBlocks{%
+			\eachAuthor%
+			\setcounter{titAuthorControl@Ctr}{0}%
+				\whiledo{\thetitAuthorControl@Ctr<\thetitAuthor@Ctr}{%
+					\expandafter\def\csname eachAuthorBlock\thetitAuthorControl@Ctr%
+					\endcsname{\ignorespaces%
+						\csname @eachAuthor\thetitAuthorControl@Ctr\endcsname%
+						\unskip\ifnum\@Sup=1%
+						\edef\len{\csname @labelLength\thetitAuthorControl@Ctr\endcsname}%
+						\setcounter{supLenCtr}{\len}%
+						\setcounter{supCtr}{\@gobbleSup}%
+						\setcounter{supControl@Ctr}{\thesupLenCtr}%
+						\addtocounter{supControl@Ctr}{-1}%
+						\loop\ifnum\thesupCtr<\thesupLenCtr%
+							\edef\sup@script{\csname @AuthorLabel%
+									\thetitAuthorControl@Ctr\thesupCtr\endcsname}%
+							\ifnum\@Fnsymbol=1%
+								\setcounter{tmpCtr}{\csname\sup@script @XX%
+									\endcsname}%
+								{\thinspace\textsuperscript{\@FNsymbol{\thetmpCtr}}}%
+							\else%
+								\textsuperscript{\thinspace\csname \sup@script @XX\endcsname%
+									\ifnum\thesupCtr=\thesupControl@Ctr\unskip\else ,\fi}%
+							\fi
+						\stepcounter{supCtr}\repeat\fi%
+						%% FOR thanks
+						\@THANKS%
+					}%
+				\stepcounter{titAuthorControl@Ctr}%
+			}%
+			\setcounter{titAddressControl@Ctr}{1}%
+			\whiledo{\thetitAddressControl@Ctr<\thetitAddress@Ctr}{%
+				\expandafter\def\csname eachAddressBlock\thetitAddressControl@Ctr%
+					\endcsname{%
+				\edef\sup@script{\csname @addressLabel\thetitAddressControl@Ctr%
+					\endcsname}%
+				\ifnum\@Sup=1%
+						\setcounter{supCtr}{\csname \sup@script @XX\endcsname}%
+						\textsuperscript{\ifnum\@Fnsymbol=1\fnsymbol{supCtr}%
+							\else\csname \sup@script @XX\endcsname\fi}%
+					\fi%
+          \csname @eachAddress\thetitAddressControl@Ctr\endcsname%
+				}%
+				\stepcounter{titAddressControl@Ctr}%
+			}%
+		}%
+		\AuthorBlocks
+		\setcounter{titAuthorControl@Ctr}{0}%
+		\def\AuthorAddressLines{%
+				\expandafter\def\csname AuthorLine\endcsname{%
+				\whiledo{\thetitAuthorControl@Ctr<\thetitAuthor@Ctr}{%
+   					\csname eachAuthorBlock\thetitAuthorControl@Ctr\endcsname% 
+						\unskip%
+						\ifnum\thepenultimateAuthor@Ctr=\thetitAuthorControl@Ctr%
+							\space\penultimateAuthorSep%
+						\else%
+							\ifnum\thelastAuthor@Ctr=\thetitAuthorControl@Ctr%
+								\lastAuthorStop%
+							\else%
+								\authorsep%
+							\fi%
+						\fi%
+						\stepcounter{titAuthorControl@Ctr}%
+					}%
+				}%
+			\setcounter{titAddressControl@Ctr}{1}%
+			\expandafter\def\csname AddressLine\endcsname{%
+			\whiledo{\thetitAddressControl@Ctr<\thetitAddress@Ctr}{%
+				\csname eachAddressBlock\thetitAddressControl@Ctr\endcsname%
+				\ifnum\thetitAddressControl@Ctr=\thepenultimateAddress@Ctr%
+					\space\penultimateAddressSep%
+				\else%
+					\ifnum\thetitAddressControl@Ctr=%
+						\thelastAddress@Ctr\addressStop%
+					\else%
+						\addressSep%
+					\fi%
+				\fi%
+   			\stepcounter{titAddressControl@Ctr}%
+	  		}%
+			}%
+		}%
+		%
+	\def\edit{Editorial}
+  \ifx\@style\edit\noindent\rule{\textwidth}{.8pt}
+  %\relax
+	\else
+		\noindent\rule{\textwidth}{.8pt}\\
+  	\begingroup%
+  \vbox to 0pt{\hbox to 0pt{\hskip30pt\includegraphics[height=3cm]{small.eps}}}  %new style
+		\list{}{\leftmargin\@pretitlehskip\rightmargin\@posttitlehskip%
+ 		\topsep\z@ \parsep \z@ \@plus\p@\itemsep0pt%
+ 		\listparindent \z@ \labelsep \z@}%
+ 		\item[]\relax\parbox{\titlelength}{%
+        \@titlejustification
+        \@titleattrib\@title}
+ 		\endlist%
+	\endgroup%
+	\fi
+ 	\par\addvspace{\@posttitleskip}
+	\setcounter{titAuthorControl@Ctr}{0}%
+	\setcounter{titAddressControl@Ctr}{1}%
+ 	\AuthorAddressLines%
+	\ifx\@style\edit\else
+  \begingroup
+	\list{} {\leftmargin\@preauthorhskip\rightmargin\@postauthorhskip%
+ 		\topsep \z@\parsep0\p@ \@plus\p@\itemsep0pt%
+ 		\listparindent 0em\labelsep \z@}%
+ 		\item[]\relax\@authorjustification\@authorattrib%
+		\csname AuthorLine\endcsname%
+	\endlist%
+	\endgroup\addvspace{\@postauthorskip}
+	%
+	\begingroup%
+	\list{} {\leftmargin\@preaddresshskip\rightmargin\@postaddresshskip%
+ 		\topsep \z@ \parsep0\p@ \@plus\p@\itemsep0pt%
+ 		\listparindent 0em\labelsep \z@}%
+		\item[]\relax\@addressjustification\@addressattrib%
+		\csname AddressLine\endcsname%
+	\unskip\endlist%
+	\endgroup\addvspace{\@postaddressskip}%
+ 	\@thanks%
+	\newif\if@receiveline\@receivelinefalse%
+	\ifx\@received\@empty\else\@receivelinetrue\fi%
+	\ifx\@revised\@empty\else\@receivelinetrue\fi%
+	\ifx\@accepted\@empty\else\@receivelinetrue\fi%
+	\if@receiveline
+	\begingroup%
+	\list{} {\leftmargin\@preaddresshskip\rightmargin\@postaddresshskip%
+ 		\topsep \z@ \parsep0\p@ \@plus\p@\itemsep0pt%
+ 		\listparindent 0em\labelsep \z@}%
+		\item[]\relax {\sffamily\receivedfont\upshape \@@received
+		%%
+		\ifx\@revised\@empty \ifx\@accepted\@empty%
+		\ifx\@received\@empty\else \fi\fi\else
+		\ifx\@received\@empty\else\receivedsep\fi\fi
+		%%
+		\ifx\@revised\@accepted%
+			\ifx\@revised\@empty\else \space revised and\fi \space \@@accepted
+			\ifx\@accepted\@empty\else \fi%
+		\else%
+			\ifx\@revised\@empty\else\space\fi\@@revised 
+			\ifx\@accepted\@empty\else \revisedsep\fi\space \@@accepted%
+			\ifx\@accepted\@empty\else \fi
+		\fi}%
+		\unskip\endlist%
+	\endgroup%
+	\fi% cvr3 03/01/2000
+	
+  \ifx\@style\edit\else
+		\addvspace{\@postaddressskip}%
+		\noindent\rule{\textwidth}{.8pt}
+	\fi
+ 	\thispagestyle{\the\pgstyle}
+ 	\let\footnotemark\oldfootnotemark
+}
+\def\editorial#1{%
+    \gdef\@style{Editorial}%
+    \noindent{\editfont\@style}\\[12pt]
+    {\normalsize\bfseries\strut\uppercase{#1}\strut}
+    \par\vskip13pt}
+%%
+\endinput
+%
+%%******
+%% end of bioinformaticstitle.sty file

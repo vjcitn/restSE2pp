@@ -1,0 +1,424 @@
+%%Focal Image 
+%%Class for OUP journal BIOINFORMATICS
+%% Filename: bioinformaticsbib.sty
+%%
+%%%-----------------------------------------------------------------
+%% Oct 20, 1999/ ver. 1.0 
+%%-----------------------------------------------------------------
+\NeedsTeXFormat{LaTeX2e}[1995/12/01]
+\ProvidesPackage{bioinformaticsbib}
+\def\bibauthorPattern{snm,fnm,init}%
+\def\bibIauthorPattern{snm,fnm,init}%
+\def\bibIIauthorPattern{snm,fnm,init}%
+\def\editorPattern{snm,fnm,init}%
+\def\bibPattern{pre,authors,year,atitle,jtitle,volume,fpage,lpage,post}%
+\def\bibArtPattern{pre,authors,year,atitle,jtitle,volume,fpage,lpage,post}%
+\def\bibBookPattern{pre,authors,year,atitle,bktitle,bkstitle,editors,puborgname,pubplace,state,volume,fpage,lpage,post}%
+\def\bibPreprintPattern{pre,authors,atitle,jtitle,editors,puborgname,pubplace,state,volume,fpage,lpage,post}%
+\def\bibInBookPattern{pre,authors,year,atitle,editors,bktitle,bkstitle,puborgname,pubplace,state,volume,fpage,lpage,post}%
+\def\bibRepPattern{pre,authors,year,atitle,editors,bktitle,bkstitle,repid,puborgname,pubplace,state,volume,fpage,lpage,post}%
+\def\bibThesisPattern{pre,authors,year,thesis,subthesis,univ,fpage,lpage,post}%
+\def\bibOtherPattern{pre,authors,year,commn,pubplace,fpage,lpage,post}%
+%
+\def\bibauthorsep{\unskip,\ }%
+\def\bibauthorcon{ and }%
+\def\bibauthorstop{\unskip\space}%
+\def\initsep{ }%
+\def\snmsep{\unskip, }%
+\def\fnmsep{ }%
+%
+\def\editorsep{\unskip, }%
+\def\editorcon{ and }%
+\def\editorstop{}%
+\def\edinitsep{}%
+\def\edsnmsep{\unskip,}%
+\def\edfnmsep{ }%
+%
+\def\bibnostop{\let\@@bibStop\relax}
+\def\atitlenostop{\def\@atitlesep{\relax}}
+\def\yrnostop{\def\@yrsep{\relax}}
+\def\@@bibStop{\unskip.}%
+\def\@atitlesep{\unskip. }%             
+\def\@jtitlesep{\unskip,\space}%
+%\def\@yrsep{\unskip; }%
+\def\@yrsep{\if@article\unskip\space\else\unskip\space\fi}%
+\def\@volsep{\unskip, }%
+\def\@fpagesep{\unskip--}%
+\def\@lpagesep{\unskip.\space}%
+%\def\@bktitlesep{\unskip, }%
+\def\@bktitlesep{\if@book\unskip.\space\else\if@inbook\unskip\space\fi\fi}% added on 26/7/99
+\def\@bkstitlesep{\unskip, }%
+\def\@orgnamesep{\unskip, }%
+\def\@citysep{\unskip, }%
+\def\@sbdsep{\unskip, }%
+\def\@repidsep{\unskip, }%
+\def\@univsep{\unskip, }%
+\def\@thesissep{\unskip, }%
+\def\@subthesissep{\unskip, }%
+\def\@cntrysep{\unskip, }%
+\def\@commnsep{\unskip, }%
+%
+\def\@jattrib{\itshape}%
+\def\@volattrib{\bfseries}%
+\def\@bkattrib{\itshape}%
+\def\@bksattrib{}%
+\def\@yrattrib{}%
+%
+%%%%%% End of User Definable Area %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\def\@changesep{\let\@atitlesep\@@bibStop\let\@jtitlesep\@@bibStop%
+ \let\@yrsep\@@bibStop\let\@volsep\@@bibStop\let\@fpagesep\@@bibStop%
+  \let\@bktitlesep\@@bibStop\let\@bkstitlesep\@@bibStop\let\@citysep\@@bibStop%
+   \let\@lpagesep\@@bibStop\let\@sbdsep\@@bibStop\let\@repdsep\@@bibStop%
+    \let\@univsep\@@bibStop\let\@thesissep\@@bibStop\let\@cntrysep\@@bibStop%
+     \let\@commnsep\@@bibStop\let\@orgnamesep\@@bibStop%
+      \let\@subthesissep\@@bibStop%
+}
+%
+\def\@nullify{
+\let\@init\@empty      \let\@sbd\@empty
+\let\@snm\@empty       \let\@fpage\@empty
+\let\@bktitle\@empty   \let\@lpage\@empty
+\let\@yr\@empty        \let\bibauthors\@empty
+\let\@orgname\@empty   \let\@atitle\@empty
+\let\@city\@empty      \let\@jtitle\@empty
+\let\@vol\@empty	     \let\@edinit\@empty
+\let\@edsnm\@empty     \let\@repid\@empty
+\let\@bkstitle\@empty  \let\@thesis\@empty
+\let\@univ\@empty 		 \let\@cntry\@empty
+\let\@commn\@empty     \let\@subthesis\@empty
+}
+\@nullify
+%
+  \def\atitle#1{\def\@atitle{#1}}
+  \def\jtitle#1{\def\@jtitle{#1}}
+  \def\vol#1{\def\@vol{#1}}
+  \def\bktitle#1{\gdef\@bktitle{#1}}
+  \def\bkstitle#1{\gdef\@bkstitle{#1}}
+  \def\yr#1{\gdef\@yr{#1}}
+  \def\orgname#1{\gdef\@orgname{#1}}
+  \def\city#1{\gdef\@city{#1}}
+  \def\sbd#1{\gdef\@sbd{#1}}
+  \def\repid#1{\def\@repid{#1}}
+  \def\fpage#1{\gdef\@fpage{#1}}
+  \def\lpage#1{\gdef\@lpage{#1}}
+  \def\dissert#1{\gdef\@thesis{#1}}
+  \def\subdissert#1{\gdef\@subthesis{#1}}
+  \def\univ#1{\gdef\@univ{#1}}
+  \def\commn#1{\gdef\@commn{#1}}
+  \def\cntry#1{\gdef\@cntry{#1}}
+%
+\newcounter{authorIntialCtr}
+\newcounter{authorFnmCtr}
+\newcounter{authorCtr}
+\newcounter{artCtr}
+\newcounter{check@Ctr}
+\newcounter{totalAuthors}
+\newcounter{authorAndCount}
+\newcounter{authorStopCount}
+%
+\newcounter{editorIntialCtr}
+\newcounter{editorFnmCtr}
+\newcounter{editorCtr}
+\newcounter{totalEditors}
+\newcounter{editorAndCount}
+\newcounter{editorStopCount}
+%
+\newcounter{@punct}
+\newcounter{@@attr}
+%
+\def\snm#1{%
+	\expandafter\def\csname @snm\theauthorCtr\endcsname{#1}%
+	\setcounter{authorAndCount}{\c@authorCtr}%
+	\addtocounter{authorAndCount}{-1}%
+	\setcounter{authorStopCount}{\c@authorCtr}%
+	\stepcounter{authorCtr}%
+	\setcounter{totalAuthors}{\c@authorCtr}%
+}
+%
+\def\init#1{%
+	\expandafter\def\csname @init\theauthorIntialCtr\endcsname{#1}%
+	\stepcounter{authorIntialCtr}%
+}
+%
+\def\fnm#1{%
+	\expandafter\def\csname @fnm\theauthorFnmCtr\endcsname{#1}%
+	\stepcounter{authorFnmCtr}%
+}
+%
+\def\edsnm#1{%
+	\expandafter\def\csname @edsnm\theeditorCtr\endcsname{#1}%
+	\setcounter{editorAndCount}{\c@editorCtr}%
+	\addtocounter{editorAndCount}{-1}%
+	\setcounter{editorStopCount}{\c@editorCtr}%
+	\stepcounter{editorCtr}%
+	\setcounter{totalEditors}{\c@editorCtr}%
+}
+%
+\def\edinit#1{%
+	\expandafter\def\csname @edinit\theeditorIntialCtr\endcsname{#1}%
+	\stepcounter{editorIntialCtr}%
+}
+%
+\def\edfnm#1{%
+	\expandafter\def\csname @edfnm\theeditorFnmCtr\endcsname{#1}%
+	\stepcounter{editorFnmCtr}%
+}
+%
+\def\separator{\ifthenelse%
+	{\value{authorCtr} = \value{authorAndCount}}%
+	{\bibauthorcon}%
+	{\ifthenelse%
+		{\value{authorCtr} =\value{authorStopCount}}%
+		{\bibauthorstop}%
+		{\bibauthorsep}%
+	}%
+}%
+%
+\def\edseparator{\ifthenelse%
+	{\value{editorCtr} = \value{editorAndCount}}%
+	{\editorcon}%
+	{\ifthenelse%
+		{\value{editorCtr} =\value{editorStopCount}}%
+		{\editorstop}%
+		{\editorsep}%
+	}%
+}%
+%
+\def\@ign{\@ifnextchar\space{\@gobble}{\relax}}%
+\def\bibauthorList{%
+	\setcounter{authorCtr}{0}%
+	\addtocounter{authorIntialCtr}{-1}%
+	\addtocounter{authorFnmCtr}{-1}%
+	\setcounter{check@Ctr}{0}%
+	\whiledo%
+	%
+	{\value{authorCtr}<\value{totalAuthors}}%
+	%
+	{\@for\stringTokens:=\bibauthorPattern\do{%
+		\ifthenelse{\equal{\stringTokens}{init}}%
+		{\expandafter\ifx\csname @init\theauthorCtr\endcsname\@empty\else\unskip\csname @init\theauthorCtr\endcsname\initsep\@ign\fi}{}% 
+		\ifthenelse{\equal{\stringTokens}{fnm}}%
+			{\unskip\csname @fnm\theauthorCtr\endcsname\fnmsep\@ign}{}% 
+		\ifthenelse{\equal{\stringTokens}{snm}}%
+			{\csname @snm\theauthorCtr\endcsname\snmsep\@ign}{}}% 
+		\ignorespaces\unskip\separator\@ign%
+		\setcounter{check@Ctr}{\theauthorCtr}%
+		\stepcounter{authorCtr}%
+		\ifnum\number\theauthorCtr=\number\thetotalAuthors%
+		\@checkAuthorCtrs\fi
+	}%
+}%
+%
+\def\@checkAuthorCtrs{%
+	\ifnum\value{authorIntialCtr}=\value{check@Ctr}\relax%
+		\else\marginpar{\scriptsize\raggedright Initial field missing!!}\fi%
+	\ifnum\value{authorFnmCtr}=\value{check@Ctr}\relax%
+		\else\marginpar{\scriptsize\raggedright First Name field missing!!}\fi%
+}
+%	
+\def\editorList{%
+	\setcounter{editorCtr}{0}%
+	\addtocounter{editorIntialCtr}{-1}%
+	\addtocounter{editorFnmCtr}{-1}%
+	\setcounter{check@Ctr}{0}%
+	\whiledo%
+	%
+	{\value{editorCtr}<\value{totalEditors}}%
+	%
+	{\@for\stringTokens:=\editorPattern\do{%
+		\ifthenelse{\equal{\stringTokens}{init}}%
+		{\expandafter\ifx\csname @edinit\theeditorCtr\endcsname\unskip\else\unskip\csname @edinit\theeditorCtr\endcsname\edinitsep\fi}{}% 
+		\ifthenelse{\equal{\stringTokens}{fnm}}%
+			{\csname @edfnm\theeditorCtr\endcsname\edfnmsep}{}% 
+		\ifthenelse{\equal{\stringTokens}{snm}}%
+			{\csname @edsnm\theeditorCtr\endcsname\edsnmsep}{}}% 
+		\ignorespaces\unskip\edseparator%
+		\setcounter{check@Ctr}{\theeditorCtr}%
+		\stepcounter{editorCtr}%
+		\ifnum\number\theeditorCtr=\number\thetotalEditors%
+		\@checkEditorCtrs\fi%
+	}%
+}%
+%
+\def\@checkEditorCtrs{%
+	\ifnum\value{editorIntialCtr}=\value{check@Ctr}\relax%
+		\else\marginpar{\scriptsize\raggedright Editor's Initial field missing!!}\fi%
+	\ifnum\value{editorFnmCtr}=\value{check@Ctr}\relax%
+		\else\marginpar{\scriptsize\raggedright Editor's First Name field missing!!}\fi%
+}
+%
+\def\@nullcounter{%
+\setcounter{authorIntialCtr}{0}%
+\setcounter{authorFnmCtr}{0}%
+\setcounter{authorCtr}{0}%
+\setcounter{artCtr}{0}%
+\setcounter{totalAuthors}{0}%
+\setcounter{authorAndCount}{0}%
+\setcounter{authorStopCount}{0}%
+\setcounter{editorIntialCtr}{0}%
+\setcounter{editorFnmCtr}{0}%
+\setcounter{editorCtr}{0}%
+\setcounter{totalEditors}{0}%
+\setcounter{editorAndCount}{0}%
+\setcounter{editorStopCount}{0}}%
+%
+\def\@CVJT{jtitle}\def\@CVAT{atitle}\def\@CVBK{bktitle}%
+\def\@CVBKS{bkstitle}\def\@CVORG{puborgname}\def\@CVPLA{pubplace}%
+\def\@CVST{state}\def\@CVVOL{volume}\def\@CVYR{year}%
+\def\@CVFP{fpage}\def\@CVLP{lpage}\def\@CVUN{univ}%
+\def\@CVTH{thesis}\def\@CVCNT{country}\def\@CVCOM{commn}%
+\def\@CVRPID{repid}\def\@CVED{editors}\def\@CVAU{authors}%
+\def\@CVPRE{pre}\def\@CVPOST{post}\def\@CVSDIS{subthesis}%
+%
+%
+\def\journalList{\setcounter{artCtr}{0}%
+	\@for \stringTokens:=\bibPattern\do{%
+		\ifx\stringTokens\@CVAU\ifnum\c@totalAuthors=0\ignorespaces\else%
+ 	   \expandafter\gdef\csname @journalAttr\theartCtr\endcsname{\protect\bibauthorList}%
+  	  \stepcounter{artCtr}\fi\else%
+		\ifx\stringTokens\@CVJT\ifx\@jtitle\@empty\ignorespaces\else%
+     \expandafter\gdef\csname @journalAttr\theartCtr\endcsname{{\@jattrib\@jtitle}%
+      \protect\@jtitlesep}%
+       \stepcounter{artCtr}\fi\else%
+		\ifx\stringTokens\@CVVOL\ifx\@vol\@empty\ignorespaces\else%
+ 	   \expandafter\gdef\csname @journalAttr\theartCtr\endcsname{{\@volattrib\@vol}%
+      \protect\@volsep}%
+  	   \stepcounter{artCtr}\fi\else%
+		\ifx\stringTokens\@CVYR\ifx\@yr\@empty\ignorespaces\else%
+ 	   \expandafter\gdef\csname @journalAttr\theartCtr\endcsname{{(\@yr)}%
+      \protect\@yrsep}%
+  	   \stepcounter{artCtr}\fi\else%
+		\ifx\stringTokens\@CVFP\ifx\@fpage\@empty\ignorespaces\else%
+ 	   \expandafter\gdef\csname @journalAttr\theartCtr\endcsname{%
+      \if@book pp.\space\else\if@inbook pp.\space\else\if@report pp.\space\fi\fi\fi%
+%      \if@lpage pp.\else p.\space\fi %  rishi 12/08/99
+      \@fpage\protect\@fpagesep}%
+  	   \stepcounter{artCtr}\fi\else%
+		\ifx\stringTokens\@CVLP\ifx\@lpage\@empty\ignorespaces\else%
+ 	   \expandafter\gdef\csname @journalAttr\theartCtr\endcsname{\@lpage%
+      \protect\@lpagesep}%
+  	   \stepcounter{artCtr}\fi\else%
+		\ifx\stringTokens\@CVAT\ifx\@atitle\@empty\ignorespaces\else%
+     \expandafter\gdef\csname @journalAttr\theartCtr\endcsname{\@atitle%
+      \protect\@atitlesep}%
+   	   \stepcounter{artCtr}\fi\else%
+		\ifx\stringTokens\@CVBK\ifx\@bktitle\@empty\ignorespaces\else%
+     \expandafter\gdef\csname @journalAttr\theartCtr\endcsname{%
+      \if@inbook\space\else\if@report \space\else%
+      \fi
+      \fi{\@bkattrib\@bktitle\space}%
+      \protect\@bktitlesep}%
+    	 \stepcounter{artCtr}\fi\else%
+		\ifx\stringTokens\@CVBKS\ifx\@bkstitle\@empty\ignorespaces\else%
+     \expandafter\gdef\csname @journalAttr\theartCtr\endcsname{{\@bksattrib\@bkstitle}%
+      \protect\@bkstitlesep}%
+    	 \stepcounter{artCtr}\fi\else%
+		\ifx\stringTokens\@CVORG\ifx\@orgname\@empty\ignorespaces\else%
+     \expandafter\gdef\csname @journalAttr\theartCtr\endcsname{{\@orgname}%
+      \protect\@orgnamesep}%
+    	 \stepcounter{artCtr}\fi\else%
+		\ifx\stringTokens\@CVPLA\ifx\@city\@empty\ignorespaces\else%
+     \expandafter\gdef\csname @journalAttr\theartCtr\endcsname{\@city%
+      \protect\@citysep}%
+    	 \stepcounter{artCtr}\fi\else%
+		\ifx\stringTokens\@CVST\ifx\@sbd\@empty\ignorespaces\else%
+     \expandafter\gdef\csname @journalAttr\theartCtr\endcsname{{\@sbd}%
+      \protect\@sbdsep}%
+    	 \stepcounter{artCtr}\fi\else%
+		\ifx\stringTokens\@CVUN\ifx\@univ\@empty\ignorespaces\else%
+ 	   \expandafter\gdef\csname @journalAttr\theartCtr\endcsname{\@univ%
+      \protect\@univsep}%
+  	   \stepcounter{artCtr}\fi\else%
+		\ifx\stringTokens\@CVTH\ifx\@thesis\@empty\ignorespaces\else%
+ 	   \expandafter\gdef\csname @journalAttr\theartCtr\endcsname{\@thesis%
+      \protect\@thesissep}%
+  	   \stepcounter{artCtr}\fi\else%
+		\ifx\stringTokens\@CVCNT\ifx\@cntry\@empty\ignorespaces\else%
+ 	   \expandafter\gdef\csname @journalAttr\theartCtr\endcsname{\@cntry%
+      \protect\@cntrysep}%
+  	   \stepcounter{artCtr}\fi\else%
+		\ifx\stringTokens\@CVCOM\ifx\@commn\@empty\ignorespaces\else%
+ 	   \expandafter\gdef\csname @journalAttr\theartCtr\endcsname{\@commn%
+      \protect\@commnsep}%
+  	   \stepcounter{artCtr}\fi\else%
+		\ifx\stringTokens\@CVRPID\ifx\@repid\@empty\ignorespaces\else%
+ 	   \expandafter\gdef\csname @journalAttr\theartCtr\endcsname{\@repid%
+      \protect\@repidsep}%
+  	   \stepcounter{artCtr}\fi\else%
+		\ifx\stringTokens\@CVED\ifnum\c@totalEditors=0\ignorespaces\else%
+ 	   \expandafter\gdef\csname @journalAttr\theartCtr\endcsname{%
+     \ifnum\c@totalEditors=1\space\else\ifnum\c@totalEditors>1%
+     \space\else\relax\fi\fi\protect\if@report In \fi\if@inbook In \fi%
+		 \editorList~\ifnum\c@totalEditors>1(eds),\else (ed.),\fi\space}%
+  	  \stepcounter{artCtr}\fi\else%
+       \relax%
+    \ifx\stringTokens\@CVPRE\ifx\@prearticle\@empty\ignorespaces\else%
+ 	   \expandafter\gdef\csname @journalAttr\theartCtr\endcsname{\@prearticle}%
+  	  \stepcounter{artCtr}\fi\else%
+    \ifx\stringTokens\@CVPOST\ifx\@postarticle\@empty\ignorespaces\else%
+ 	   	\expandafter\gdef\csname @journalAttr\theartCtr\endcsname{\@postarticle}%
+  	  \stepcounter{artCtr}\fi\else%
+    	\relax%
+    \ifx\stringTokens\@CVSDIS\ifx\@subthesis\@empty\ignorespaces\else%
+ 	   	\expandafter\gdef\csname @journalAttr\theartCtr\endcsname{\@subthesis%
+      \protect\@subthesissep}%
+  	  \stepcounter{artCtr}\fi\else%
+    	\relax%
+		\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi}%
+}
+%
+\def\bibList{\setcounter{@@attr}{0}%
+  \setcounter{@punct}{\c@artCtr}%
+  \addtocounter{@punct}{-1}%
+  \loop\ifnum\c@@@attr<\c@artCtr%
+  \ifnum\c@@@attr=\c@@punct\@changesep\fi%
+  \csname @journalAttr\the@@attr\endcsname\stepcounter{@@attr}%
+  \ignorespaces\repeat}%
+%
+\newif\if@article \@articlefalse
+\newif\if@book \@bookfalse
+\newif\if@inbook \@inbookfalse
+\newif\if@report \@reportfalse
+\newif\if@lpage \@lpagefalse
+
+\newenvironment{article}{\begingroup\@nullcounter\@nullify%
+      \endlinechar-1\@articletrue\let\bibPattern\bibArtPattern}%
+     {\journalList\ignorespaces\bibList\endgroup}%
+%
+\newenvironment{book}{\begingroup\@nullcounter\@nullify%
+     \endlinechar-1\@booktrue\let\bibPattern\bibBookPattern}%
+     {\journalList\ignorespaces\bibList\endgroup}%
+%
+\newenvironment{preprint}{\begingroup\@nullcounter\@nullify%
+     \endlinechar-1\@booktrue\let\bibPattern\bibPreprintPattern}%
+     {\journalList\ignorespaces\bibList\endgroup}%
+%
+\newenvironment{inbook}{\begingroup\@nullcounter\@nullify%
+     \endlinechar-1\@inbooktrue\let\bibPattern\bibInBookPattern}%
+     {\journalList\ignorespaces\bibList\endgroup}%
+%
+\newenvironment{report}{\begingroup\@nullcounter\@nullify%
+      \endlinechar-1\@reporttrue\let\bibPattern\bibRepPattern}%
+     {\journalList\ignorespaces\bibList\endgroup}%
+%
+\newenvironment{thesis}{\begingroup\@nullcounter\@nullify%
+  		\endlinechar-1\let\bibPattern\bibThesisPattern}%
+     {\journalList\ignorespaces\bibList\endgroup}%
+%
+\newenvironment{others}{\begingroup\@nullcounter\@nullify%
+  \let\bibPattern\bibOtherPattern\endlinechar-1}%
+     {\journalList\ignorespaces\bibList\endgroup}%
+%
+\@namedef{bookb}{\book}
+\@namedef{endbookb}{\endbook}
+\let\@prearticle\@empty%
+\let\@postarticle\@empty%
+\def\prearticle#1{\def\@prearticle{#1\ignorespaces}}%
+\def\postarticle#1{\def\@postarticle{\unskip#1}}%
+\let\pre\prearticle
+\let\post\postarticle
+
+\endinput
+%
+% end of file bioinformaticsbib.sty

@@ -1,0 +1,157 @@
+%\documentclass[twocolumn,10pt]{article}
+%\usepackage{hyperref}
+
+\documentclass[applications]{gen-bioinformatics}
+
+\makeatletter
+\renewcommand\boldmath{\@nomath\boldmath\mathversioo
+n{bold}}
+\makeatother
+
+\usepackage{amssymb,amsfonts,url,times}
+\usepackage{graphics}
+\usepackage{amsmath}
+\usepackage{dcolumn}
+\newcolumntype{.}{D{.}{.}{-1}}
+%\usepackage{hlight}
+
+\urlstyle{rm}
+\def\email#1{#1}
+
+
+
+\newcommand{\Rfunction}[1]{{\texttt{#1}}}
+\newcommand{\Robject}[1]{{\texttt{#1}}}
+\newcommand{\Rpackage}[1]{{\textit{#1}}}
+\newcommand{\Rmethod}[1]{{\texttt{#1}}}
+\newcommand{\Rfunarg}[1]{{\texttt{#1}}}
+\newcommand{\Rclass}[1]{{\textit{#1}}}
+\providecommand{\OO}[1]{\operatorname{O}\left(#1\right)}
+ 
+
+\author[1]{\pfnm{Shweta}
+  \pinit{}
+  \psnm{Gopaulakrishnan}}
+
+\author[1]{\pfnm{Samuela}
+  \pinit{}
+  \psnm{Pollack}}
+
+\author[1]{\pfnm{Benjamin}
+  \pinit{}
+  \psnm{Stubbs}}
+
+\author[1]{\pfnm{Vincent}
+  \pinit{J}
+  \psnm{Carey}}
+
+\address[1]{\porgdiv{Channing Division of Network Medicine}
+  \porgname{Brigham and Women's Hospital}
+  \pstreet{181 Longwood Avenue }
+  \pcity{Boston}
+  \postcode{02115}
+  \pcnty{USA}}
+
+
+ 
+
+\begin{document}
+
+
+\title{restfulSE: a semantically rich interface for cloud-scale genomics}
+\maketitle
+
+\begin{abstract}
+\begin{subabstract}[Summary]
+Bioconductor's \verb+SummarizedExperiment+ class
+unites numerical assay quantifications with sample- and
+experiment-level metadata.  We describe a deployment
+of this data model for data resources that are accessible
+via REST APIs.  We illustrate \verb+SummarizedExperiment+s with
+HDF Server, HDF Cloud, and Google BigQuery back ends.
+\end{subabstract}
+\begin{subabstract}[Availability] Package \Rpackage{restfulSE} of Bioconductor
+ (\url {www.bioconductor.org}). Open source.
+\end{subabstract}
+\begin{subabstract}[Contact]reshg@channing.harvard.edu
+\end{subabstract}
+%\begin{subabstract}[keywords] REST API, HDF5, Bioconductor
+\end{abstract}
+\section*{Introduction}
+
+The analysis of multiomic archives (like TCGA) and single-cell
+transcriptomic experiments (like the 10x 1.3 million mouse neuron
+dataset) typically begin with downloads of large files and
+conversion of file contents into formats based on local preferences.
+In this paper we consider how targeted queries of large remote
+genomic data resources can be conducted using methods available
+for Bioconductor's \verb+SummarizedExperiment+ class.
+This approach can be used to centralize
+large data archives and diminish redundant disk
+consumption.  Clients for HDF5 data are available in
+numerous language; our Bioconductor interface permits access to
+remote HDF5 archives with
+familiar and semantically meaningful programmatic idioms.
+
+\section*{Description}
+
+\subsection*{The SummarizedExperiment class and related methods}
+
+Let $X$ denote a matrix of quantifications arising from a genome
+scale assay with $G$ assay features measured on $N$ experimental
+samples.  In the 10x mouse neuron dataset, $G = 27998$ and $N= 1.3$ million.
+When these quantifications are managed in a Bioconductor \verb+SummarizedExperiment X+, the numbers in $X$ are programmatically bound to a $G \times F$
+table of feature-level metadata (e.g., gene or transcript names and
+characteristics) accessible by the \verb+rowData+ method, and to an $N \times R$ table of sample-level metadata accessible by \verb+colData+. 
+[CITE HUBER] The idiom \verb+X[G,S]+ expresses filtering of 
+the information
+to features \verb+G+ and samples \verb+S+.  A \verb+GRanges+ 
+instance [CITE LAWRENCE] defining genomic coordinates for features may be bound to \verb+X+,
+allowing the use of \verb+subsetByOverlaps+ to isolate features
+coincident with or near the elements of a given \verb+GRanges+.
+This idea is often used when seeking patterns of variation in
+assay elements near regions identified as peaks of factor binding.
+
+\subsection*{Managing quantifications remotely}
+
+\textbf{HDF Server.}  The \verb+h5serv+ Python package defines a Tornado-based RESTful web
+service for providing access to HDF5 datasets.  HDF5 representations of
+numerical matrices encoding genome scale assays are 
+frequently encountered.  Because
+the server design permits compression, and to facilitate direct natural 
+slicing of matrix data, our examples use a dense representation.  The
+HDF Server API handles access to data and metadata.  Parallel query
+resolution is supported on suitable hardware.
+
+\textbf{HDF Cloud.}  An S3-based distributed data model for HDF5
+datasets has been implemented by the HDF Group.
+
+\textbf{Google BigQuery.}  
+
+\subsection*{Semantic value through hybrid design.}
+
+The \verb+restfulSE+ package provides interfaces to remote HDF5
+and BigQuery so that the numerical content lodged in these services
+satisfies the Bioconductor \verb+DelayedArray+ API.  
+Any \verb+DelayedArray+ instance can serve as the \verb+assay+
+component of a \verb+SummarizedExperiment+ instance.  Thus the
+capacities of \verb+SummarizedExperiment+ to bind semantically
+rich metadata to genome-scale assays are extended implicitly to
+data resources that are intrinsically metadata-poor.  In 
+conjunction with the \verb+rhdf5client+ and \verb+bigrquery+ packages,
+\verb+restfulSE+ translates filtering and selection operations
+which are readily defined using \verb+rowData+, \verb+rowRanges+,
+and \verb+colData+ into formal queries resolvable by the HDF5 and
+BigQuery services.  Numerical results are transmitted as needed.
+
+\section*{Performance}
+
+\section*{Future enhancements}
+
+\section*{Acknowledgments}
+Support for the development of this software was provided by grant
+(NIH) P20 CA096470 - Pi Wing Wong Center for Computational Study of
+Biological Systems.
+\bibliography{BioC}
+
+\end{document}

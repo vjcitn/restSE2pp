@@ -1,0 +1,223 @@
+%==============================================================================
+% (bioinformatics.sty) Package for 
+% Bioinformatics, published by Oxford University Press
+% Author: Kuo-Bin Li (kuobin@bii.a-star.edu.sg)
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Here is an example about using this style.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\documentclass{article}
+%\usepackage{bioinformatics}
+%
+%\begin{document}
+%
+%\title{Honesty is the best policy}
+%\author{Lapog Anug}
+%\address{Bioinformatics Institute, 
+%      30 Medical Drive, Singapore 117609,
+%      Republic of Singapore}
+%
+%\authorhead{L. Anug}
+%\titlehead{Honesty}
+%
+%\maketitle
+%
+%\begin{abstract}
+%\bmotivation
+%\bresults
+%\bavailability
+%\bcontact \texttt{anug@bii.a-star.edu.sg}
+%\end{abstract}
+%
+%\section*{INTRODUCTION}
+%\section*{RESULTS}
+%
+%\bibliography{bii}
+%\end{document}
+
+
+
+
+\def\bioinformatics@Version{0.1}
+\NeedsTeXFormat{LaTeX2e}[1995/12/01]
+\ProvidesPackage{bioinformatics}[2003/05/01, v. \bioinformatics@Version]
+\typeout{(c) 2003 Kuo-Bin Li}
+\typeout{ }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Use T1 and TS1 encoding.
+% Use Times, Helvetica and Courier fonts.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\RequirePackage[T1]{fontenc}
+\RequirePackage{textcomp}
+\RequirePackage{mathptmx}
+\RequirePackage[scaled=0.92]{helvet}
+\RequirePackage{courier}
+\RequirePackage{graphicx}
+\RequirePackage{fancyhdr}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% The followings are derived from astron.sty (Sake J. Hogeveen, 1990).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%
+% The hanging indentation for biobliography entries.
+%
+\newlength{\bibhang}
+\setlength{\bibhang}{1.4em}
+
+% Use () instead of [] for \cite.
+\def\@cite#1#2{(#1\if@tempswa , #2\fi)}
+% No label in the bibliography
+\def\@biblabel#1{}
+
+%
+% \thebibliography environment depends on whether or not "chapter"
+% heading exists.
+%
+\@ifundefined{chapter}{\def\thebibliography#1{\section*{REFERENCES\@mkboth
+  {REFERENCES}{REFERENCES}}\list
+  {\relax}{\setlength{\labelsep}{0em}
+	\setlength{\itemindent}{-\bibhang}
+	\setlength{\itemsep}{0pt}
+	\setlength{\parsep}{0pt}
+	\setlength{\leftmargin}{\bibhang}}
+    \def\newblock{\hskip .11em plus .33em minus .07em}
+    \sloppy\clubpenalty4000\widowpenalty4000
+    \sfcode`\.=1000\relax}}%
+{\def\thebibliography#1{\chapter*{Bibliography\@mkboth
+  {BIBLIOGRAPHY}{BIBLIOGRAPHY}}\list
+  {\relax}{\setlength{\labelsep}{0em}
+	\setlength{\itemindent}{-\bibhang}
+	\setlength{\itemsep}{0pt}
+	\setlength{\parsep}{0pt}
+	\setlength{\leftmargin}{\bibhang}}
+    \def\newblock{\hskip .11em plus .33em minus .07em}
+    \sloppy\clubpenalty4000\widowpenalty4000
+    \sfcode`\.=1000\relax}}
+
+
+%
+% \cite{} us the normal way. You might use \cite*{} to cite
+% the year only.
+%
+\let\@internalcite\cite
+\def\cite{\@ifstar{\citeyear}{\citefull}}
+\def\citefull{\def\astroncite##1##2{##1, ##2}\@internalcite}
+\def\citeyear{\def\astroncite##1##2{##2}\@internalcite}
+
+\def\@citex[#1]#2{\if@filesw\immediate\write\@auxout{\string\citation{#2}}\fi
+  \def\@citea{}\@cite{\@for\@citeb:=#2\do
+    {\@citea\def\@citea{; }\@ifundefined
+       {b@\@citeb}{{\bf ?}\@warning
+       {Citation `\@citeb' on page \thepage \space undefined}}%
+{\csname b@\@citeb\endcsname}}}{#1}}
+
+%
+% We will use "bioinformatics.bst" as the BibTeX style.
+%
+\bibliographystyle{bioinformatics}
+
+%
+% Use twocolumn,10pt,a4paper,twoside by default
+%
+\@twocolumntrue
+\@twosidetrue  
+\@mparswitchtrue
+\renewcommand\@ptsize{0}
+\setlength\paperheight {297mm}
+\setlength\paperwidth  {210mm}
+
+%
+% Customized for Bioinformatics
+%
+\setlength{\textwidth}{17.6cm}
+\setlength{\textheight}{22.75cm}
+\setlength{\linewidth}{88mm}
+\setlength{\oddsidemargin}{-0.36in}
+\setlength{\evensidemargin}{-0.36in}
+\setlength\voffset{-1.45cm}
+
+%
+% Title stuff
+%
+\newcommand{\@mbtitle}{}
+\renewcommand{\title}[1]{\gdef\@mbtitle{#1}} 
+\newcommand{\@mbauthor}{}
+\renewcommand{\author}[1]{\gdef\@mbauthor{#1}} 
+\newcommand{\@mbaddress}{}
+\newcommand{\address}[1]{\gdef\@mbaddress{#1}} 
+
+\renewcommand{\maketitle}{
+\twocolumn[
+\begin{@twocolumnfalse}
+\begin{center}
+\Large
+
+\textsf{\textbf{\textit{\@mbtitle}}}
+
+\large
+
+\vspace{0.2cm}
+\textsf{\textit{\@mbauthor}}\\
+
+\normalsize
+
+\vspace{0.2cm}
+\textsf{\textit{\@mbaddress}}
+
+\end{center}
+\hrulefill
+\vspace{0.4cm}
+\end{@twocolumnfalse}
+]
+\normalsize
+}
+
+%
+% Abstract
+%
+\newcommand{\bmotivation}{{\noindent\normalsize\sffamily\bfseries Motivation:\ }}
+\newcommand{\bresults}{{\noindent\normalsize\sffamily\bfseries Results:\ }}
+\newcommand{\bavailability}{{\noindent\normalsize\sffamily\bfseries Availability:\ }}
+\newcommand{\bcontact}{{\noindent\normalsize\sffamily\bfseries Contact:\ }}
+
+\renewenvironment{abstract}{%
+\section*{ABSTRACT}
+\sffamily
+}
+
+%
+% pagestyle
+%
+\newcommand{\@authorhead}{}
+\newcommand{\@titlehead}{}
+\newcommand{\authorhead}[1]{\gdef\@authorhead{#1}}
+\newcommand{\titlehead}[1]{\gdef\@titlehead{#1}}
+\pagestyle{fancyplain}
+\fancyhead{}
+\fancyfoot{}
+\fancyhead[LO]{\sffamily \bfseries \slshape \@authorhead}
+\fancyhead[RE]{\sffamily \bfseries \slshape \@titlehead}
+\fancyfoot[LO,RE]{\sffamily \bfseries \thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+%
+% Modify section heading.
+%
+\renewcommand\section{\@startsection {section}{1}{\z@}%
+                                   {-3.5ex \@plus -1ex \@minus -.2ex}%
+                                   {1.3ex \@plus.2ex}%
+                                   {\normalfont\large\sffamily\bfseries}}
+
+\renewcommand\subsection{\@startsection {subsection}{2}{\z@}%
+                                   {-3.5ex \@plus -1ex \@minus -.2ex}%
+                                   {1.3ex \@plus.2ex}%
+                                   {\normalfont\normalsize\rmfamily\bfseries}}
+
+
+
+\endinput

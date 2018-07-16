@@ -1,0 +1,141 @@
+\makeatletter
+\renewcommand\authorfont{%
+  \fontfamily{phv}\fontseries{l}\fontshape{sl}\fontsize{13}{15}\selectfont}
+\renewcommand\addressfont{%
+  \fontfamily{phv}\fontseries{l}\fontshape{sl}\fontsize{10}{12}\selectfont}
+\renewcommand\receivedfont{%
+ \fontfamily{phv}\fontseries{l}\fontshape{n}\fontsize{8}{9}\selectfont}
+
+
+\def\ps@title{\label@firstpage%
+  \def\@oddhead{%
+		\definecolor{gray20}{gray}{.8}
+   	{}\hspace*{2.5pc}\begin{minipage}[c][20pt][c]{\TextWidth}
+   	{\color{gray20}\biofont BIOINFORMATICS 
+		\ifx\@style\contentnote\textcolor{black}{CONTENTS}\fi%
+		\ifx\@style\appnote\textcolor{black}{APPLICATIONS NOTE}\fi%
+		\ifx\@style\ontolo\textcolor{black}{ONTOLOGY}\fi%
+  \ifx\@style\disnote\textcolor{black}{DISCOVERY NOTE}\fi%
+		\ifx\@style\authorindex\textcolor{black}{AUTHOR INDEX}\fi	%
+		\ifx\@style\subjectindex\textcolor{black}{SUBJECT INDEX}\fi	%
+  \ifx\@style\acknote\textcolor{black}{ACKNOWLEDGEMENTS}\fi
+    \if@@review\textcolor{black}{REVIEW}\fi}%
+		\end{minipage}\hfill
+		\definecolor{gray20}{gray}{.8}
+		%
+				\ifx\@style\contentnote%
+   		\begin{minipage}[t][16pt][t]{1.93in}
+   			{}\fontfamily{phv}\fontseries{l}\fontshape{sl}\selectfont\small\hfill%
+	 		Volume~\the@volumenumber~numbers.~\the@issuenumber~\the\year\\[3pt]
+   		\end{minipage}%
+		\else
+    \ifx\@style\acknote%
+   		\begin{minipage}[c][16pt][c]{1.93in}
+   		{}\fontfamily{phv}\fontseries{l}\fontshape{sl}\selectfont\small\hfill%
+	 		Volume~\the@volumenumber~numbers.~\the@issuenumber~\the\year\\[3pt]
+   		\end{minipage}%
+		\else
+			%\begin{minipage}[c][20pt][c]{.93in}%   cvr3
+			\begin{minipage}[c][20pt][c]{1.03in}
+   		{}\fontfamily{phv}\fontseries{l}\fontshape{sl}\selectfont\small\hfill%
+	 		Vol.~\the@volumenumber~no.~\the@issuenumber~\the\year\par
+   		{}\hfill Pages \firstpage--\lastpage
+   		\end{minipage}%
+		\fi\fi
+	}
+  \let\@evenhead\@oddhead
+  \def\@oddfoot{%
+    {\vbox{\hsize\textwidth\@parboxrestore
+   	{\rule{\textwidth}{.8pt}\\
+   	\fontsize{7}{8.5}\selectfont\sffamily\copyright\space Oxford University Press \the\year%new style
+    \hfill{\fontsize{9}{11}\selectfont\sffamily\textbf{\thepage}}}}}%new style
+   	\relax%
+	}%
+  \def\@evenfoot{%
+    {\vbox{\hsize\textwidth\@parboxrestore
+   	{\rule{\textwidth}{.8pt}\\
+   	\fontsize{7}{8.5}\selectfont\sffamily{\fontsize{9}{11}\selectfont\sffamily\textbf{\thepage}}%new style
+    \hfill\fontsize{7}{8.5}\selectfont\sffamily\copyright\space Oxford University Press \the\year}}}%new style
+   	\relax%
+	}%
+}
+\def\ps@AcknAuthorSubject{\label@firstpage%
+  \def\@oddhead{\parbox[t]{\textwidth}{%
+		\definecolor{gray20}{gray}{.8}
+    {}\hspace*{2.5pc}\begin{minipage}[b][19pt][t]{\TextWidth}
+   	{\color{gray20}\BIofont BIOINFORMATICS 
+		\ifx\@style\acknote\textcolor{black}{ACKNOWLEDGEMENTS}\fi%
+		\ifx\@style\authorindex\textcolor{black}{AUTHOR INDEX}\fi	%
+		\ifx\@style\subjectindex\textcolor{black}{SUBJECT INDEX}\fi	%
+		\ifx\@style\appnote\textcolor{black}{APPLICATIONS NOTE}\fi}%
+		\end{minipage}\hfill
+		\definecolor{gray20}{gray}{.8}
+			\begin{minipage}[b][19pt][t]{1.05in}%  cvr3
+   		{}\fontfamily{phv}\fontseries{l}\fontshape{sl}\selectfont\small\hfill%
+	 		Vol.~\the@volumenumber~no.~\the@issuenumber~\the\year\par
+   		{}\hfill Pages \firstpage--\lastpage
+   		\end{minipage}%
+		\\[-3pt]
+  \rule{\textwidth}{.8pt}}
+	}
+  \let\@evenhead\@oddhead
+  \def\@oddfoot{%
+    {\vbox{\hsize\textwidth\@parboxrestore
+   	{\rule{\textwidth}{.8pt}\\
+   	\fontsize{7}{8.5}\selectfont\sffamily\copyright\space Oxford University Press \the\year%new style
+     \hfill{\fontsize{9}{11}\selectfont\sffamily\textbf{\thepage}}\hspace*{8pt}}%new style
+    }}}%
+  \def\@evenfoot{%
+    {\vbox{\hsize\textwidth\@parboxrestore
+   	{\rule{\textwidth}{.8pt}\\
+   	{\fontsize{9}{11}\selectfont\sffamily\textbf{\thepage}}%new style
+    \hfill\fontsize{7}{8.5}\selectfont\sffamily\copyright\space Oxford University Press \the\year%new style
+     }
+    }}}%
+	}%
+\pagestyle{bioinformatics}
+\def\ps@contents{\label@firstpage%
+  \def\@oddhead{\parbox[t]{\textwidth}{%
+		\definecolor{gray20}{gray}{.8}
+   	{}\hspace*{2.5pc}\begin{minipage}[c][20pt][c]{26.5pc}%\TextWidth}
+   	{\color{gray20}\biofont BIOINFORMATICS 
+		\ifx\@style\contentnote\textcolor{black}{CONTENTS}\fi%
+		\ifx\@style\disnote\textcolor{black}{DISCOVERY NOTE}\fi%
+		\ifx\@style\appnote\textcolor{black}{APPLICATIONS NOTE}\fi}%
+		\end{minipage}%\hfill
+		\definecolor{gray20}{gray}{.8}
+		%
+		\ifx\@style\contentnote%
+   		\begin{minipage}[c][15pt][b]{1.93in}
+   	{}\fontfamily{phv}\fontseries{l}\fontshape{sl}\selectfont\small\hspace*{6pt}%
+	 		Volume~\the@volumenumber~number~\the@issuenumber~\the\year\par
+   		\end{minipage}%
+		\else
+			%\begin{minipage}[c][20pt][c]{.93in}
+			\begin{minipage}[c][20pt][c]{1.03in}%  cvr3
+   		{}\fontfamily{phv}\fontseries{l}\fontshape{sl}\selectfont\small\hfill%
+	 		Vol.~\the@volumenumber~no.~\the@issuenumber~\the\year\par
+   		{}\hfill Pages \firstpage--\lastpage
+   		\end{minipage}%
+		\fi\\[6pt]
+  \rule{\textwidth}{.8pt}}
+	}
+  \let\@evenhead\@oddhead
+  \def\@oddfoot{%
+    {\vbox{\hsize\textwidth\@parboxrestore
+   	{\rule{\textwidth}{.8pt}\\
+   	\fontsize{7}{8.5}\selectfont\sffamily\copyright\space Oxford University Press \the\year%new style
+    \pagenumbering{roman}\setcounter{page}{3}
+    \hfill%{\fontsize{9}{11}\selectfont\sffamily\textbf{\thepage}}\hspace*{10pt}%new style
+    }}}%
+   	\relax%
+	}%
+  \let\@evenfoot\@oddfoot%
+}
+
+\def\UrlSpecials{\do\<{\langle}\do\>{\mathbin{\rangle}}\do\_{\_%
+ \penalty\@m}\do\|{\mid}\do\{{\lbrace}\do\}{\mathbin{\rbrace}}\do
+ \\{\mathbin{\backslash}}\do\~{\mathord{{\textstyle\sim}}}\do\ {\ }}%
+
+
+\makeatother
