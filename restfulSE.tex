@@ -49,11 +49,15 @@ n{bold}}
   \pinit{}
   \psnm{Readey}}
 
-\author[4]{\pfnm{Levi}
+\author[4]{\pfnm{Sean}
+  \pinit{}
+  \psnm{Davis}}
+
+\author[5]{\pfnm{Levi}
   \pinit{}
   \psnm{Waldron}}
 
-\author[5]{\pfnm{Martin}
+\author[6]{\pfnm{Martin}
   \pinit{T}
   \psnm{Morgan}}
 
@@ -82,14 +86,22 @@ n{bold}}
   \postcode{}
   \pcnty{USA}}
 
-\address[4]{
+\address[4]{\porgdiv{Center for Cancer Research}
+  \porgname{NCI}
+  \pstreet{}
+  \pcity{Bethesda}
+  \postcode{}
+  \pcnty{USA}}
+
+
+\address[5]{
   \porgname{CUNY}
   \pstreet{}
   \pcity{NY}
   \postcode{}
   \pcnty{USA}}
 
-\address[5]{
+\address[6]{
   \porgname{RPCI}
   \pstreet{}
   \pcity{Buffalo}
@@ -101,7 +113,8 @@ n{bold}}
 \begin{document}
 
 
-\title{restfulSE: a semantically rich interface for cloud-scale genomics}
+\title{restfulSE: a semantically rich interface for cloud-scale genomics
+with Bioconductor}
 \maketitle
 
 \begin{abstract}
@@ -222,14 +235,15 @@ acquire and transform the PD-L1
 expression values, and d) form the stratified boxplot. 
 The basic findings of Bailey et al. are replicated.
 Enhancement of the code to produce the 3 x 3 tableau
-is demonstrated in the BiocOncoTK vignette.
+is demonstrated in the \Rpackage{BiocOncoTK} vignette.
 
 \noindent
 \textbf{HDF Cloud back end.}  Figure \ref{hdffig}
 demonstrates construction of a RESTful SummarizedExperiment
 for expression data on 1.3 million neurons.
-The syntax \verb+tenx[g,s]+ generates a delayed selection for
-genes \verb+g+ and samples \verb+s+; when the \verb+assay()+
+The syntax \verb+tenx[,s]+ generates a delayed selection for
+all genes with samples 
+identified in vector \verb+s+.  When the \verb+assay()+
 method is invoked, RESTful queries are composed and
 shipped to the object store at \verb+URL_hsds()+.
 These can be serviced in parallel, with
@@ -241,23 +255,53 @@ responses into R matrix structures.
 
 \section*{Performance}
 
-Our considerations of performance focus on reliability,
-expressivity, and scalability.  \textit{Reliability:} 
-The restfulSE, rhdf5client,
-and BiocOncoTK packages are accompanied by detailed unit
+We focus on pursuit of reliability,
+expressivity, and scalability using restfulSE.  
+\textit{Reliability:} 
+The \Rpackage{restfulSE}, \Rpackage{rhdf5client},
+and \Rpackage{BiocOncoTK} packages are accompanied by detailed unit
 tests that compare retrievals to known values.  In the
-case of BigQuery table queries, random queries are generated
-in BigQuery SQL and in the SummarizedExperiment idiom and
-checked for concordance.  \textit{Expressivity:} The code
+case of BigQuery table queries, the test
+suite composes random queries 
+in both BigQuery SQL and in the SummarizedExperiment idiom.  Results
+are tested for concordance.  \textit{Expressivity:} The code
 segments in Figures \ref{pancanPanel} and \ref{hdffig} are
-non-trivial but easy to break down.  The joining and
+complex but easy to break down.  The joining and
 reshaping of pancan-atlas tables in BigQuery corresponding
 to the code in Figure \ref{pancanPanel}
 can be checked through the query history in the BigQuery
 interface.  The acquisition of expression values required
-five nested SELECT statements; the query exclusive of
-clinical data processing was 6000 characters in length.
+five nested SELECT statements; the query for assay quantifications
+was 6000 characters in length.
 The R code is 223 characters including comments.
+\textit{Scalability.}  BigQuery is intrinsically auto-scaling,
+but charges accrue with the number of records visited, 
+so query design can have effects on throughput
+and cost.  We rely on the bigrquery and dbplyr packages for
+efficient translation of R-oriented data manipulations to 
+BigQuery SQL.  Throughput with HDF Cloud 
+is dependent upon the configuration of the object server,
+the relationship of numerical data layout to prevalent access
+patterns, and the degree to which queries capitalize on
+API efficiencies like chunk-based retrieval.  For both
+back ends, proper design and deployment of the querying client can
+lead to throughput that scale with client-side resources.
+
+\section*{Conclusions}
+
+Cloud-based data archiving strategies are of significant
+interest for genome science.  The SummarizedExperiment class
+unifies assay data with substantive sample- and experiment-level
+metadata, and its API for managing and interrogating
+genome-scale experiment archives is used in numerous
+analytic packages.  Through the DelayedArray protocol, high-performance
+cloud-resident data stores can be exposed to users and
+algorithms as SummarizedExperiments.  Further work on improving
+efficiency of
+representation and query resolution for assay data and metadata
+will help to achieve the potential of federated cloud computing for
+enhanced discovery in biology through interactive genome-scale analysis.
+
 
 
 \begin{figure}[bb]
@@ -299,12 +343,9 @@ the URL for HDF Kita Lab.  The results are
 \label{hdffig}
 \end{figure}
 
-
 \section*{Acknowledgments}
 Support for the development of this software was provided by NIH grants
 U01 CA214846 (Carey, PI) and U24 CA180996 (Morgan, PI).
-
-\pagebreak
 
 \bibliography{BioC}
 
