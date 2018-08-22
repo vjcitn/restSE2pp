@@ -135,9 +135,9 @@ BigQuery back ends.
 \end{abstract}
 \section*{Introduction}
 
-The analysis of multiomic archives like The Cancer Genome Atlas (TCGA)
+The analysis of multiomic archives like The Cancer Genome Atlas (TCGA, \url{https://cancergenome.nih.gov/})
 and single-cell transcriptomic experiments such as the 10x 1.3 million
-mouse neuron dataset typically begin with downloads of large files and
+mouse neuron dataset (\url{https://support.10xgenomics.com/single-cell-gene-expression/datasets}) typically begin with downloads of large files and
 conversion of file contents into formats based on local preferences.
 In this paper we consider how targeted queries of large remote genomic
 data resources can be conducted using methods available for
@@ -145,7 +145,7 @@ Bioconductor's \verb+SummarizedExperiment+ class.  This approach can
 be used to centralize large data archives, diminish redundant disk
 consumption, and facilitate ad hoc and interactive analysis of data
 subsets without downloading entire datasets. Clients for
-HDF5 or BigQuery data are available in numerous languages; our
+HDF5 (\url{https://www.hdfgroup.org/}) or BigQuery (\url{https://cloud.google.com/bigquery/}) are available in numerous languages; our
 Bioconductor interface permits access to remote archives of genomic
 data with familiar and semantically meaningful programmatic idioms.
 
