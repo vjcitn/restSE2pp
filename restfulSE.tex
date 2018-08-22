@@ -121,7 +121,7 @@ with Bioconductor}
 \begin{subabstract}[Summary]
 Bioconductor's \verb+SummarizedExperiment+ class unites numerical
 assay quantifications with sample- and experiment-level metadata.  We
-describe a deployment of this data model for data resources that are
+describe a deployment of this data model, the \verb+restfulSE+ package, for data resources that are
 accessible from remote resources via REST APIs.  We illustrate
 \verb+SummarizedExperiment+s with HDF Server, HDF Cloud, and Google
 BigQuery back ends.
@@ -163,10 +163,8 @@ The idiom \verb+X[G,S]+ expresses filtering of
 the information
 to features \verb+G+ and samples \verb+S+.  A \verb+GRanges+ 
 instance \citep{Lawrence2013} defining genomic coordinates for features may be bound to \verb+X+,
-allowing the use of \verb+subsetByOverlaps+ to isolate features
-coincident with or near the elements of a given \verb+GRanges+.
-This idea is often used when seeking patterns of variation in
-assay elements near regions identified as peaks of factor binding.
+facilitating queries defined by genomic location (using, for example, \verb+subsetByOverlaps+) to isolate features
+coincident with or near the elements of a set of query genomic ranges (eg., binding peaks).
 
 \subsection*{Managing quantifications remotely}
 
