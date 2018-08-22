@@ -173,9 +173,9 @@ coincident with or near the elements of a set of query genomic ranges (eg., bind
 Genomics Cloud project (ISB-CGC) \citep{ISBCGC} uses 
 Google BigQuery to provide access to
 various public cancer genomics resources including
-The Cancer Genome Atlas (TCGA) and the PanCancer Atlas \citep{Hoadley2018}.
+TCGA and the PanCancer Atlas \citep{Hoadley2018}.
 The \verb+pancan_SE+
-function of \verb+restfulSE+ constructs queries that derive
+function of \Rpackage{restfulSE} constructs queries that derive
 SummarizedExperiment instances using quantifications and annotations
 for PanCancer atlas experiments
 managed in BigQuery tables.  
@@ -192,9 +192,9 @@ interest in genome science for this framework.
 
 \noindent
 \textbf{DelayedArray.}
-The \verb+restfulSE+ package provides interfaces to 
+The \Rpackage{restfulSE} package provides interfaces to 
 BigQuery and HDF Cloud so that 
-the numerical content lodged in these services
+the numerical content housed in these services
 satisfies the Bioconductor \verb+DelayedArray+ API \citep{Pages2018}.  
 %Any \verb+DelayedArray+ instance can serve as the \verb+assay+
 %component of a \verb+SummarizedExperiment+ instance.  Thus the
@@ -202,8 +202,8 @@ satisfies the Bioconductor \verb+DelayedArray+ API \citep{Pages2018}.
 %rich metadata to genome-scale assays are extended implicitly to
 %data resources for which no standards exist for
 %associating substantive metadata.  
-In conjunction with the \verb+rhdf5client+ and \verb+bigrquery+ packages,
-\verb+restfulSE+ translates filtering and selection operations
+In conjunction with the \Rpackage{rhdf5client} and \Rpackage{bigrquery} packages,
+\Rpackage{restfulSE} translates filtering and selection operations
 which are readily defined using \verb+rowData+, \verb+rowRanges+,
 and \verb+colData+ into formal queries resolvable by the HDF5 and
 BigQuery services.  Numerical results are transmitted only when needed.
@@ -211,7 +211,7 @@ BigQuery services.  Numerical results are transmitted only when needed.
 \section*{Results}
 
 \textbf{BigQuery back end.} Figure \ref{pancanPanel} illustrates the 
-use of the RESTful SummarizedExperiment protocol
+use of the \Rpackage{restfulSE} protocol
 with the ISB-CGC BigQuery back end.  In Figure 5C
 of Bailey et al. (2018), it is suggested that
 microsatellite instability (MSI) is associated with
@@ -220,9 +220,9 @@ for adenocarcinomas of colon (COAD) and stomach (STAD), and
 uterine corpus endometrial carcinoma (UCEC).  Bailey's
 detailed quantifications of microsatellite instability
 are not available; a categorization of MSI was
-obtained from the curatedTCGAData system \citep{Ramos2017}.
+obtained from the \Rpackage{curatedTCGAData} system \citep{Ramos2017}.
 Code at the top of Figure \ref{pancanPanel} employs
-functions in the BiocOncoTK package that build on
+functions in the \Rpackage{BiocOncoTK} package that build on
 restfulSE functionality to a) authenticate the
 user to the BigQuery platform, b) select a tumor
 type (COAD) and assay for SummarizedExperiment
@@ -230,7 +230,7 @@ construction, c) bind MSI available values as
 sample-level data variable \verb+msiTest+, d)
 acquire and transform the PD-L1 
 (Entrez ID 29126)
-expression values, and d) form the stratified boxplot. 
+expression values, and e) form the stratified boxplot. 
 The basic findings of Bailey et al. are replicated.
 Enhancement of the code to produce the 3 x 3 tableau
 is demonstrated in the \Rpackage{BiocOncoTK} vignette.
@@ -254,7 +254,7 @@ responses into R matrix structures.
 \section*{Performance}
 
 We focus on pursuit of reliability,
-expressivity, and scalability using restfulSE.  
+expressivity, and scalability using \Rpackage{restfulSE}.  
 \textit{Reliability:} 
 The \Rpackage{restfulSE}, \Rpackage{rhdf5client},
 and \Rpackage{BiocOncoTK} packages are accompanied by detailed unit
@@ -273,9 +273,9 @@ five nested SELECT statements; the query for assay quantifications
 was 6000 characters in length.
 The R code is 223 characters including comments.
 \textit{Scalability.}  BigQuery is intrinsically auto-scaling,
-but charges accrue with the number of records visited, 
+but charges accrue with the amount of data scanned, 
 so query design can have effects on throughput
-and cost.  We rely on the bigrquery and dbplyr packages for
+and cost.  We rely on the \Rpackage{bigrquery} and \Rpackage{dbplyr} packages for
 efficient translation of R-oriented data manipulations to 
 BigQuery SQL.  Throughput with HDF Cloud 
 is dependent upon the configuration of the object server,
@@ -287,8 +287,8 @@ lead to throughput that scale with client-side resources.
 
 \section*{Conclusions}
 
-Cloud-based data archiving strategies are of significant
-interest for genome science.  The SummarizedExperiment class
+Cloud-scale storage and retrieval strategies are of significant
+interest for genome science.  The \Rclass{SummarizedExperiment} class
 unifies assay data with substantive sample- and experiment-level
 metadata, and its API for managing and interrogating
 genome-scale experiment archives is used in numerous
