@@ -11,7 +11,7 @@ After establishing the project ID, you can visit the following URL
 https://console.cloud.google.com/bigquery?p=pancancer-atlas&page=project
 
 and this event will prompt for authentication.  Set the environment variable
-CGC_BILLING to the project ID that you have established, or use project
+CGC_BILLING to the project ID that you have established, or use this project
 ID as a string for the billing parameter in pancan_BQ.  At this point,
 ```
 bq = BiocOncoTK::pancan_BQ()
