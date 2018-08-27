@@ -88,17 +88,14 @@ n{bold}}
 
 \address[4]{\porgdiv{Center for Cancer Research}
   \porgname{NCI}
-  \pstreet{}
   \pcity{Bethesda}
-  \postcode{}
   \pcnty{USA}}
 
 
 \address[5]{
-  \porgname{CUNY}
-  \pstreet{}
+  \porgdiv{Institute for Implementation Science in Population Health}
+  \porgname{CUNY School of Public Health}
   \pcity{NY}
-  \postcode{}
   \pcnty{USA}}
 
 \address[6]{
@@ -120,8 +117,12 @@ with Bioconductor}
 \begin{abstract}
 \begin{subabstract}[Summary]
 Bioconductor's \verb+SummarizedExperiment+ class unites numerical
-assay quantifications with sample- and experiment-level metadata.  We
-describe a deployment of this data model, the \verb+restfulSE+ package, for data resources that are
+assay quantifications with sample- and experiment-level metadata.  
+It is the standard Bioconductor class for assays that
+produce matrix-like data, used by over 200 packages, but
+previously did not support remote data stores.
+We describe a deployment of this data model, the 
+\verb+restfulSE+ package, for data resources that are
 accessible from remote resources via REST APIs.  We illustrate
 \verb+SummarizedExperiment+s with remote HDF5 and Google
 BigQuery back ends.
@@ -147,7 +148,9 @@ consumption, and facilitate ad hoc and interactive analysis of data
 subsets without downloading entire datasets. Clients for
 HDF5 (\url{https://www.hdfgroup.org/}) or BigQuery (\url{https://cloud.google.com/bigquery/}) are available in numerous languages; our
 Bioconductor interface permits access to remote archives of genomic
-data with familiar and semantically meaningful programmatic idioms.
+data with familiar and semantically meaningful programmatic idioms,
+while abstracting the remote interface from end users
+and developers.
 
 \section*{Description}
 
@@ -164,7 +167,8 @@ the information
 to features \verb+G+ and samples \verb+S+.  A \verb+GRanges+ 
 instance \citep{Lawrence2013} defining genomic coordinates for features may be bound to \verb+X+,
 facilitating queries defined by genomic location (using, for example, \verb+subsetByOverlaps+) to isolate features
-coincident with or near the elements of a set of query genomic ranges (eg., binding peaks).
+coincident with or near the elements of a set of query genomic ranges (eg., binding peaks).  This outline of genomic data representation
+and analysis is characteristic of Bioconductor.
 
 \subsection*{Managing quantifications remotely}
 
@@ -184,7 +188,8 @@ managed in BigQuery tables.
 \textbf{HDF Cloud.}
 An AWS S3-based distributed data object model for
 HDF5 datasets, including a
-RESTful API to structure, populate, and query HDF5 archives,  has been implemented by the HDF Group. The authors have constructed a
+RESTful API to structure, populate, and query HDF5 archives,  has been implemented by the HDF Group. The authors have constructed and
+made publicly available a
 number of datasets of interest in genome science for this framework.
 
 \noindent
@@ -203,7 +208,8 @@ In conjunction with the \Rpackage{rhdf5client} and \Rpackage{bigrquery} packages
 \Rpackage{restfulSE} translates filtering and selection operations
 which are readily defined using \verb+rowData+, \verb+rowRanges+,
 and \verb+colData+ into formal queries resolvable by the HDF5 and
-BigQuery services.  Numerical results are transmitted only when needed.
+BigQuery services.  Numerical results are transmitted from
+server to client only when needed.
 
 \section*{Results}
 
@@ -231,6 +237,9 @@ expression values, and e) form the stratified boxplot.
 The basic findings of Bailey et al. are replicated.
 Enhancement of the code to produce the 3 x 3 tableau
 is demonstrated in the \Rpackage{BiocOncoTK} vignette.
+Note that in this example, expression values are
+only downloaded for a single gene, without altering
+the end user programming paradigm.
 
 \noindent
 \textbf{HDF Cloud back end.}  Figure \ref{hdffig}
@@ -246,6 +255,11 @@ of the HSDS server and its load at time of request.
 Replies can be requested in JSON or binary formats;
 \Rpackage{rhdf5client} utilities handle parsing the
 responses into R matrix structures.
+In this example, data for only four of 1.3 million neurons
+are downloaded and used to compute sums of RNA-seq read
+counts.  The \verb+DelayedArray+ framework leveraged here
+enables basic computations of this kind without loading the
+entire matrix into memory.
 
 \section*{Performance}
 
