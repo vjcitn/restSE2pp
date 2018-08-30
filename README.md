@@ -4,7 +4,8 @@ bioinfo 2pp for restfulSE
 To use pancan_SE() you must have a BigQuery project ID (which must be established
 through the BigQuery app in Google Cloud Platform, implying that you have provided
 a payment method -- all accounts receive $300 in credit, but some payment method
-must be supplied.)
+must be supplied.) See 
+[The BigQuery Getting Started Docs](https://cloud.google.com/bigquery/docs/quickstarts/quickstart-web-ui) for details.
 
 After establishing the project ID, you can visit the following URL
 
