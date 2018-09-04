@@ -348,6 +348,7 @@ enhanced discovery in biology through interactive genome-scale analysis.
 
 \begin{figure}[bb]
 \begin{verbatim}
+library(SummarizedExperiment)
 library(BiocOncoTK) # uses restfulSE
 bq = pancan_BQ() # need CGC_BILLING
 seCOAD = bindMSI(buildPancanSE(bq, 
