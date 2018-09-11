@@ -202,14 +202,14 @@ number of datasets of interest in genome science for this framework.
 The \Biocpackage{restfulSE} package provides interfaces to 
 BigQuery and HDF Cloud so that 
 the numerical content housed in these services
-satisfies the API of the Bioconductor \Biocpackage{DelayedArray} package \citep{Pages2018}.  
+satisfies the API of the Bioconductor \Biocpackage{DelayedArray} package \citep{Pages2018} \citep{delarr}.  
 %Any \verb+DelayedArray+ instance can serve as the \verb+assay+
 %component of a \verb+SummarizedExperiment+ instance.  Thus the
 %capacities of \verb+SummarizedExperiment+ to bind semantically
 %rich metadata to genome-scale assays are extended implicitly to
 %data resources for which no standards exist for
 %associating substantive metadata.  
-In conjunction with the \Biocpackage{rhdf5client} and \CRANpackage{bigrquery} packages,
+In conjunction with the \Biocpackage{rhdf5client} \citep{rclient} and \CRANpackage{bigrquery}\citep{bigr} packages,
 \Biocpackage{restfulSE} translates filtering and selection operations
 which are readily defined using \verb+rowData+, \verb+rowRanges+,
 and \verb+colData+ into formal queries resolvable by the HDF5 and
@@ -233,9 +233,9 @@ for adenocarcinomas of colon (COAD) and stomach (STAD), and
 uterine corpus endometrial carcinoma (UCEC).  Bailey's
 detailed quantifications of microsatellite instability
 are not available; a categorization of MSI was
-obtained from the \Biocpackage{curatedTCGAData} system \citep{Ramos2017}.
+obtained from the \Biocpackage{curatedTCGAData} system \citep{Ramos2017} \citep{curTCGA}.
 Code at the top of Figure \ref{pancanPanel} employs
-functions in the \Biocpackage{BiocOncoTK} package that build on
+functions in the \Biocpackage{BiocOncoTK} \citep{bionc} package that build on
 \Biocpackage{restfulSE} functionality to a) authenticate the
 user to the BigQuery platform, b) select a tumor
 type (COAD) and assay for SummarizedExperiment
@@ -246,7 +246,7 @@ acquire and transform the PD-L1
 expression values, and e) form the stratified boxplot. 
 The basic findings of Bailey et al. are replicated.
 Enhancement of the code to produce the 3 x 3 tableau
-is demonstrated in the \Biocpackage{BiocOncoTK} vignette.
+is demonstrated in the \Biocpackage{BiocOncoTK} \citep{bionc} vignette.
 Note that in this example, expression values are
 only downloaded for a single gene, without altering
 the end user programming paradigm.
@@ -304,8 +304,8 @@ entire matrix into memory.
 We focus on pursuit of reliability,
 expressivity, and scalability using \Biocpackage{restfulSE}.  
 \textit{Reliability:} 
-The \Biocpackage{restfulSE}, \Biocpackage{rhdf5client},
-and \Biocpackage{BiocOncoTK} packages are accompanied by detailed unit
+The \Biocpackage{restfulSE}, \Biocpackage{rhdf5client} \citep{rclient},
+and \Biocpackage{BiocOncoTK} \citep{bionc} packages are accompanied by detailed unit
 tests that compare retrievals to known values.  In the
 case of BigQuery table queries, the test
 suite composes random queries 
@@ -324,7 +324,7 @@ The R code is 223 characters including comments.
 \textit{Scalability.}  BigQuery is intrinsically auto-scaling,
 but charges accrue with the amount of data scanned, 
 so query design can have effects on throughput
-and cost.  We rely on the \CRANpackage{bigrquery} and \CRANpackage{dbplyr} packages for
+and cost.  We rely on the \CRANpackage{bigrquery} \citep{bigr} and \CRANpackage{dbplyr} \citep{dbp}packages for
 efficient translation of R-oriented data manipulations to 
 BigQuery SQL.  Throughput with HDF Cloud 
 is dependent upon the configuration of the object server,
@@ -367,7 +367,7 @@ corresponding to top left panel of lower display.
 Bottom: Reassessment of immune infiltrate expression
 patterns stratified by microsatellite instability
 status and tumor type, as reported in \cite{Bailey2018}.
-The vignette for package \Biocpackage{BiocOncoTK} includes all
+The vignette for package \Biocpackage{BiocOncoTK} \citep{bionc} includes all
 code needed to produce the nine panel display.}
 \label{pancanPanel}
 \end{figure}
