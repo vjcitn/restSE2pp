@@ -13,6 +13,7 @@ n{bold}}
 \usepackage[linkcolor=BiocBlue,pdfborder={0 0 0},urlcolor=BiocBlue]{hyperref}
 \usepackage{graphics}
 \usepackage{amsmath}
+\usepackage{fontawesome}
 \usepackage{dcolumn}
 \newcolumntype{.}{D{.}{.}{-1}}
 %\usepackage{hlight}
@@ -25,11 +26,13 @@ n{bold}}
 \newcommand{\Rfunction}[1]{{\texttt{#1}}}
 \newcommand{\Robject}[1]{{\texttt{#1}}}
 \newcommand{\Rpackage}[1]{{\textit{#1}}}
-\newcommand{\Biocpackage}[1]{{\emph{\href{https://bioconductor.org/packages/3.8/#1}{#1}}}}
+\newcommand{\BiocpackageFirst}[1]{{\emph{\href{https://bioconductor.org/packages/3.8/#1}{#1\textsubscript{\faExternalLink}}}}} 
+\newcommand{\Biocpackage}[1]{{\textit{#1}}}
 \newcommand{\CRANpackage}[1]{{\emph{\href{https://cran.r-project.org/web/packages/#1/index.html}{#1}}}}
+\newcommand{\CRANpackageFirst}[1]{{\emph{\href{https://cran.r-project.org/web/packages/#1/index.html}{#1\textsubscript{\faExternalLink}}}}}
 \newcommand{\Rmethod}[1]{{\texttt{#1}}}
 \newcommand{\Rfunarg}[1]{{\texttt{#1}}}
-\newcommand{\Rclass}[1]{{\textit{#1}}}
+\newcommand{\Rclass}[1]{{\texttt{#1}}}
 \providecommand{\OO}[1]{\operatorname{O}\left(#1\right)}
  
 
@@ -127,11 +130,11 @@ produce matrix-like data, used by over 200 packages.
 We describe the \Biocpackage{restfulSE} package, a deployment of 
 this data model that supports
 remote storage.
-We illustrate
-\texttt{SummarizedExperiment}s with remote HDF5 and Google
-BigQuery back ends.
+We illustrate use of
+\texttt{SummarizedExperiment} with remote HDF5 and Google
+BigQuery back ends, with two applications in cancer genomics.
 \end{subabstract}
-\begin{subabstract}[Availability] Package \Biocpackage{restfulSE} of Bioconductor
+\begin{subabstract}[Availability] Package \BiocpackageFirst{restfulSE} of Bioconductor
  (\url {www.bioconductor.org}). Open source.
 \end{subabstract}
 \begin{subabstract}[Contact]reshg@channing.harvard.edu
@@ -158,7 +161,7 @@ and developers.
 
 \section*{Description}
 
-\subsection*{The SummarizedExperiment class and related methods}
+\subsection*{The \texttt{SummarizedExperiment} class and related methods}
 
 Let $Q$ denote a matrix of quantifications arising from a genome
 scale assay with $G$ assay features measured on $N$ experimental
@@ -185,7 +188,7 @@ various public cancer genomics resources including
 TCGA and the PanCancer Atlas \citep{Hoadley2018}.
 The \verb+pancan_SE+
 function of \Biocpackage{restfulSE} constructs queries that derive
-SummarizedExperiment instances using quantifications and annotations
+\texttt{SummarizedExperiment} instances using quantifications and annotations
 for PanCancer atlas experiments
 managed in BigQuery tables.  
 
@@ -202,14 +205,14 @@ number of datasets of interest in genome science for this framework.
 The \Biocpackage{restfulSE} package provides interfaces to 
 BigQuery and HDF Cloud so that 
 the numerical content housed in these services
-satisfies the API of the Bioconductor \Biocpackage{DelayedArray} package \citep{Pages2018} \citep{delarr}.  
+satisfies the API of the Bioconductor \BiocpackageFirst{DelayedArray} package \citep{Pages2018}.  
 %Any \verb+DelayedArray+ instance can serve as the \verb+assay+
-%component of a \verb+SummarizedExperiment+ instance.  Thus the
+%component of a \texttt{SummarizedExperiment} instance.  Thus the
 %capacities of \verb+SummarizedExperiment+ to bind semantically
 %rich metadata to genome-scale assays are extended implicitly to
 %data resources for which no standards exist for
 %associating substantive metadata.  
-In conjunction with the \Biocpackage{rhdf5client} \citep{rclient} and \CRANpackage{bigrquery}\citep{bigr} packages,
+In conjunction with the \BiocpackageFirst{rhdf5client} \citep{rclient} and \CRANpackageFirst{bigrquery} \citep{bigr} packages,
 \Biocpackage{restfulSE} translates filtering and selection operations
 which are readily defined using \verb+rowData+, \verb+rowRanges+,
 and \verb+colData+ into formal queries resolvable by the HDF5 and
@@ -218,28 +221,27 @@ server to client only when needed.
 
 \section*{Results}
 
-The RESTful \verb+SummarizedExperiment+ representation
+The RESTful \texttt{SummarizedExperiment} representation
 allows complicated research queries to be obtained in a concise,
 fast, convenient and robust fashion, as illustrated by
 the following examples.
 
 \textbf{BigQuery back end.} Figure \ref{pancanPanel} illustrates the 
 use of the \Biocpackage{restfulSE} protocol
-with the ISB-CGC BigQuery back end.  In Figure 5C
-of \citet{Bailey2018}, it is suggested that
+with the ISB-CGC BigQuery back end.  Figure 5C
+of \citet{Bailey2018}, indicates that
 microsatellite instability (MSI) is associated with
 different expression signatures of immune cell infiltration
 for adenocarcinomas of colon (COAD) and stomach (STAD), and
-uterine corpus endometrial carcinoma (UCEC).  Bailey's
-detailed quantifications of microsatellite instability
-are not available; a categorization of MSI was
-obtained from the \Biocpackage{curatedTCGAData} system \citep{Ramos2017} \citep{curTCGA}.
+uterine corpus endometrial carcinoma (UCEC).  
+The MSI scores developed using MSIsensor are found
+in Table S5 of \cite{Ding2018}.
 Code at the top of Figure \ref{pancanPanel} employs
-functions in the \Biocpackage{BiocOncoTK} \citep{bionc} package that build on
+functions in the \BiocpackageFirst{BiocOncoTK} \citep{bionc} package that build on
 \Biocpackage{restfulSE} functionality to a) authenticate the
 user to the BigQuery platform, b) select a tumor
-type (COAD) and assay for SummarizedExperiment
-construction, c) bind MSI available values as
+type (COAD) and assay for \texttt{SummarizedExperiment}
+construction, c) bind Ding et al.'s MSI values as
 sample-level data variable \verb+msiTest+, d)
 acquire and transform the PD-L1 
 (Entrez ID 29126)
@@ -253,7 +255,7 @@ the end user programming paradigm.
 
 \noindent
 \textbf{HDF Cloud back end.}  Figure \ref{hdffig}
-demonstrates use of a RESTful SummarizedExperiment,
+demonstrates use of a RESTful \texttt{SummarizedExperiment},
 with assay data \texttt{/shared/bioconductor/darmgcls.h5}
 at \texttt{hsdshdflab.hdfgroup.org}.  Briefly, as a
 prelude to single-cell RNA-sequencing of glioblastoma (GBM)
@@ -279,7 +281,7 @@ entire matrix into memory.
 
 \noindent
 %\textbf{HDF Cloud back end.}  Figure \ref{hdffig}
-%demonstrates construction of a RESTful SummarizedExperiment
+%demonstrates construction of a RESTful \texttt{SummarizedExperiment}
 %for expression data on 1.3 million neurons.
 %The syntax \verb+tenx[,s]+ generates a delayed selection for
 %all genes with samples 
@@ -311,7 +313,7 @@ case of BigQuery table queries, the test
 suite composes random queries 
 in both BigQuery SQL and in the \texttt{SummarizedExperiment} 
 idiom.  Results
-are tested for concordance.  \textit{Expressivity:} The code
+are checked for elementwise equality.  \textit{Expressivity:} The code
 segments in Figures \ref{pancanPanel} and \ref{hdffig} are
 complex but easy to break down.  The joining and
 reshaping of pancan-atlas tables in BigQuery corresponding
@@ -324,7 +326,7 @@ The R code is 223 characters including comments.
 \textit{Scalability.}  BigQuery is intrinsically auto-scaling,
 but charges accrue with the amount of data scanned, 
 so query design can have effects on throughput
-and cost.  We rely on the \CRANpackage{bigrquery} \citep{bigr} and \CRANpackage{dbplyr} \citep{dbp}packages for
+and cost.  We rely on the \CRANpackage{bigrquery} \citep{bigr} and \CRANpackageFirst{dbplyr} \citep{dbp} packages for
 efficient translation of R-oriented data manipulations to 
 BigQuery SQL.  Throughput with HDF Cloud 
 is dependent upon the configuration of the object server,
@@ -343,7 +345,7 @@ metadata, and its API for managing and interrogating
 genome-scale experiment archives is used in numerous
 analytic packages.  The \Biocpackage{restfulSE} package exposes high-performance
 cloud-resident data stores to users and
-algorithms as \verb+SummarizedExperiment+s.  Continued improvements
+algorithms as \texttt{SummarizedExperiment}+s.  Continued improvements
 in efficiency of
 representation and query resolution for assay data and metadata
 will help to achieve the potential of a federated data ecosystem for
@@ -359,9 +361,12 @@ bq = pancan_BQ() # need CGC_BILLING
 seCOAD = bindMSI(buildPancanSE(bq, 
   acronym="COAD", assay="RNASeqv2"))
 boxplot(split(log2(as.numeric(assay(
- seCOAD["29126",]))+1), seCOAD$msiTest))
+ seCOAD["29126",]))+1), 
+      seCOAD$msiTest >= 4),
+      names = c("<4", ">=4"), 
+      ylab="PD-L1")
 \end{verbatim}
-\includegraphics[height=8.0cm]{imm3x3.png}
+\includegraphics[height=8.0cm]{microsatpan2.png}
 \caption{Top: Code for base graphics display of boxplot
 corresponding to top left panel of lower display.
 Bottom: Reassessment of immune infiltrate expression
@@ -389,7 +394,7 @@ ggplot(ddd, aes(x=log10norm, colour=pan)) +
   geom_density() + ylim(0,1) + 
   xlab("log10 CD45+1")
 \end{verbatim}
-\includegraphics[height=5.0cm]{darmDens.png}
+\includegraphics[height=4.0cm]{darmDens.png}
 \caption{Code and density displays for
 distribution of PTPRC (HGNC symbol for CD45) across immunopanned
 cells reported in \cite{Darmanis2017}.
