@@ -1,0 +1,39 @@
+\begin{figure}
+{\small
+\begin{verbatim}
+library(BiocOncoTK)
+library(SummarizedExperiment)
+bq = pancan_BQ(quiet=TRUE)  # (a)
+blcaMeth = buildPancanSE(bq) # (b) need auth.
+blcaMeth
+# class: RangedSummarizedExperiment 
+# dim: 396065 409 
+# metadata(3): acronym assay sampType
+# assays(1): assay
+# rownames(396065): cg00000029 cg00000165 ...
+#   rs966367 rs9839873
+# rowData names(3): gene_id gene_name
+#   gene_biotype
+# colnames(409): TCGA-FD-A5BV TCGA-FD-A3B3 ...
+#   TCGA-UY-A9PH TCGA-UY-A78L
+# colData names(21): bcr_patient_uuid
+#   bcr_patient_barcode ... race
+#   neoplasm_histologic_grade
+\end{verbatim}
+}
+\caption{
+Code and outputs for a) connecting with 
+BigQuery resource for pancancer-atlas, b)
+constructing a RESTful SummarizedExperiment
+for the Illumina 450K Methylation assay obtained
+on bladder tumors.
+%, c) interrogating metadata to
+%determine indices of CpG features nearest to 
+%TSS of genes GP5 and ZSCAN12, d) acquiring a
+%preview of quantifications of the associated probes,
+%and e) tabulating histologic grade for the
+%bladder cancer samples.
+}
+\label{bladcan}
+\end{figure}
+

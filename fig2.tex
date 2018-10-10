@@ -1,0 +1,53 @@
+
+
+\begin{figure}
+\small{
+\begin{verbatim}
+library(BiocOncoTK)
+darm = BiocOncoTK::darmGBMcls
+darm
+# class: RangedSummarizedExperiment 
+# dim: 65218 3584 
+# metadata(1): source
+# assays(1): count_lstpm
+# rownames(65218): ENSG00000000003.14
+#   ENSG00000000005.5 ... ERCC-00170
+#   ERCC-00171
+# rowData names(3): gene genome
+#   symbol
+# colnames(3584): GSM2243439
+#   GSM2243440 ... GSM2247076
+#   GSM2247077
+# colData names(59): title
+#   geo_accession ...
+#   tsne.cluster.ch1 well.ch1
+
+sapply(split(as.numeric(
+   assay(darm["ENSG00000081237.18",])), 
+   darm$characteristics_ch1.8), median)
+#
+# selection: Astrocytes(HEPACAM) 
+#                       0.000000 
+#    selection: Endothelial(BSC) 
+#                       0.000000 
+#     selection: Microglia(CD45) 
+#                      35.113292 
+#       selection: Neurons(Thy1) 
+#                       0.000000 
+#selection: Oligodendrocytes(GC) 
+#                       6.764196 
+#            selection: Unpanned 
+#                       0.000000 
+\end{verbatim}
+}
+\caption{Code and cell-type specific
+medians of CD45 expression across immunopanned
+cells reported in \cite{Darmanis2017}.
+\texttt{BiocOncoTK::darmGBMcls} includes
+a reference to the HDF Scalable Data Service
+(HDF Cloud) representation of
+this glioblastoma single-cell RNA-seq
+as requantified in the CONQUER project \citep{Soneson2018}.}
+\label{hdffig}
+\end{figure}
+
