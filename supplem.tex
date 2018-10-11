@@ -198,12 +198,24 @@ with associated metadata about assay features
 and samples.
 
 In the 10x mouse neuron dataset, $G=27998$ and $N=1.3$ million.
-When these quantifications are managed in a Bioconductor \texttt{SummarizedExperiment X}, the matrix $Q$ is programmatically bound to a $G \times F$
-table of feature-level metadata (e.g., gene or transcript names and
-characteristics) accessible by the \texttt{rowData} method, and to an $N \times R$ table of sample-level metadata accessible by \texttt{colData} \citep{Huber2015}. 
-The standard subsetting idiom \texttt{X[G,S]} expresses filtering of 
+Each of the $G$ features is a gene, and it is useful to
+have handy a number of feature annotations like gene name,
+location, functional role; suppose each gene has $F$ such
+features recorded.
+When these quantifications and
+associated annotations are managed in a 
+Bioconductor \texttt{SummarizedExperiment X}, the matrix $Q$ is programmatically bound to a $G \times F$
+table of feature-level metadata
+accessible by the \texttt{rowData} method, and to an $N \times R$ table of sample-level metadata accessible by \texttt{colData},
+where $R$ denotes the number of sample-level metadata
+features recorded \citep{Huber2015}. 
+
+In the contet of R programming, let
+\texttt{K} denote a vector of feature identifiers,
+\texttt{S} denote a vector of sample identifiers.
+The standard subsetting idiom \texttt{X[K,S]} expresses filtering of 
 the all the information in $Q$ and the associated metadata
-to features \texttt{G} and samples \texttt{S}.  A \texttt{GRanges} 
+to features \texttt{K} and samples \texttt{S}.  A \texttt{GRanges} 
 instance \citep{Lawrence2013} defining genomic coordinates for features may be bound to \texttt{X},
 facilitating queries defined by genomic location (using, for example, \texttt{subsetByOverlaps}) to isolate features
 coincident with or near the elements of a set of query genomic ranges (eg., binding peaks).  This outline of genomic data representation
