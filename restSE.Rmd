@@ -358,6 +358,43 @@ representation and query resolution for assay data and metadata
 will help to achieve the potential of a federated data ecosystem for
 enhanced discovery in biology through interactive genome-scale analysis.
 
+# Appendix: Setup considerations
+
+## Installation
+
+Programming detailed in the main paper requires 
+version 3.5 (or later) of R.  With this version
+of R, package installation occurs using the
+BiocManager package, available at cran.r-project.org.
+
+Code described in the main paper and supplement can be 
+executed after the following commands succeed:
+```
+library(BiocManager)
+install(version = "devel")
+install(c("restfulSE", "BiocOncoTK", "rhdf5client"))
+```
+The \texttt{install} command will install additional
+required packages to establish a suitable environment
+for the examples to run.
+
+## Authentication for Google BigQuery
+
+A Google Cloud Platform Project ID is needed to
+permit use of BigQuery.  This can be established \textit{de novo}
+by running \textit{gcloud auth login}, selecting a Google
+identity, and establishing the name of a project for
+the BigQuery app.  Browse to \texttt{console.cloud.google.com/bigquery}
+and find the current Project ID or create a new one.
+
+The Project ID should be supplied to \verb+pancan_BQ+ as the
+\texttt{billing} parameter to establish the BigQueryConnection
+instance for R.  The ID can also be used as the setting
+of the environment variable \verb+CGC_BILLING+, which
+\verb+pancan_BQ+ will use as billing parameter if none
+is supplied in a call.
+
+
 # Acknowledgments 
 
 Support for the development of this software was provided by NIH grants
