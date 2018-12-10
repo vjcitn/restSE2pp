@@ -1,0 +1,429 @@
+\documentclass[9pt,a4paper,]{extarticle}
+
+\usepackage{f1000_styles}
+
+\usepackage[pdfborder={0 0 0}]{hyperref}
+
+\usepackage[numbers]{natbib}
+\bibliographystyle{unsrtnat}
+
+
+%% maxwidth is the original width if it is less than linewidth
+%% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+
+% disable code chunks background
+%\renewenvironment{Shaded}{}{}
+
+% disable section numbers
+\setcounter{secnumdepth}{0}
+
+%% added by MLS, this is not in the F1000 style by default %%
+
+\hypersetup{unicode=true,
+            pdftitle={restfulSE: A semantically rich interface for cloud-scale genomics with Bioconductor},
+            pdfkeywords={Bioinformatics, REST APIs, HDF5, BigQuery, Bioconductor},
+            colorlinks=true,
+            linkcolor=Maroon,
+            citecolor=Blue,
+            urlcolor=blue,
+            breaklinks=true}
+
+%% End added by MLS %%
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+
+
+
+\begin{document}
+\pagestyle{front}
+
+\title{restfulSE: A semantically rich interface for cloud-scale genomics with Bioconductor}
+
+\author[1]{Shweta Gopaulakrishnan}
+\author[2]{Samuela Pollack}
+\author[1]{BJ Stubbs}
+\author[3]{Herv\'e Pag\`es}
+\author[4]{John Readey}
+\author[5]{Sean Davis}
+\author[6]{Levi Waldron}
+\author[7]{Martin Morgan}
+\author[1]{Vincent Carey}
+\affil[1]{Channing Division of Network Medicine, Brigham and Women's Hospital, Harvard Medical School}
+\affil[2]{Dana Farber Cancer Institute, Harvard Medical School}
+\affil[3]{Fred Hutchinson Cancer Research Center}
+\affil[4]{HDF Group}
+\affil[5]{Center for Cancer Research, NCI}
+\affil[6]{CUNY}
+\affil[7]{Roswell Park Cancer Institute}
+
+\maketitle
+\thispagestyle{front}
+
+\begin{abstract}
+Bioconductor's \texttt{SummarizedExperiment} class unites numerical assay quantifications with sample- and experiment-level metadata. \texttt{SummarizedExperiment} is the standard Bioconductor class for assays that produce matrix-like data, used by over 200 packages. We describe the \emph{\href{https://bioconductor.org/packages/3.9/restfulSE}{restfulSE}} package, a deployment of this data model that supports remote storage. We illustrate use of \texttt{SummarizedExperiment} with remote HDF5 and Google BigQuery back ends, with two applications in cancer genomics. Our intent is to allow the use of familiar and semantically meaningful programmatic idioms to query genomic data, while abstracting the remote interface from end users and developers.
+\end{abstract}
+
+\section*{Keywords}
+Bioinformatics, REST APIs, HDF5, BigQuery, Bioconductor
+
+
+\clearpage
+\pagestyle{main}
+
+\section{Introduction}\label{introduction}
+
+Analyses of multiomic archives like \href{https://cancergenome.nih.gov/}{The Cancer Genome Atlas (TCGA)}
+and single-cell transcriptomic experiments such as the
+\href{https://support.10xgenomics.com/single-cell-gene-expression/datasets}{10x 1.3 million
+mouse neuron dataset}
+typically begin with downloads of large files and
+conversion of file contents into formats based on local preferences.
+In this paper we consider how targeted queries of large remote genomic
+data resources can be conducted using methods available for
+Bioconductor's \emph{\href{https://bioconductor.org/packages/3.9/SummarizedExperiment}{SummarizedExperiment}} class.
+For large data archives that have been centralized
+in cloud storage, use of this approach can help diminish effort
+required to manage local storage,
+and can facilitate interactive analysis of data
+subsets in familiar programming idioms,
+without downloading entire datasets.
+Clients for
+\href{https://www.hdfgroup.org/}{HDF5}
+or \href{https://cloud.google.com/bigquery}{Google BigQuery}
+are available in numerous languages; our
+Bioconductor interface permits access to remote archives of genomic
+data with familiar and semantically meaningful programmatic idioms,
+while abstracting the remote interface from end users
+and developers.
+
+\section{Methods: Data structures and remote back ends}\label{methods-data-structures-and-remote-back-ends}
+
+\subsection{\texorpdfstring{The \texttt{SummarizedExperiment} class and related methods}{The SummarizedExperiment class and related methods}}\label{the-summarizedexperiment-class-and-related-methods}
+
+Let \(Q\) denote a matrix of quantifications arising from a genome
+scale assay with \(G\) assay features measured on \(N\) experimental
+samples. The elements of \(Q\) are the numbers \(q_{ij}, i = 1, \ldots, G, j = 1, \ldots, N\). Bioconductor's SummarizedExperiment
+structure
+manages feature quantifications
+with associated metadata about assay features
+and samples.
+
+In the 10x mouse neuron dataset, \(G=27998\) and \(N=1.3\) million.
+Each of the \(G\) features is a gene, and it is useful to
+have handy a number of feature annotations like gene name,
+location, functional role; suppose each gene has \(F\) such
+features recorded.
+When these quantifications and
+associated annotations are managed in a
+Bioconductor \texttt{SummarizedExperiment} \texttt{X}, the matrix \(Q\) is programmatically bound to a \(G \times F\)
+table of feature-level metadata
+accessible by the \texttt{rowData} method, and to an \(N \times R\) table of sample-level metadata accessible by \texttt{colData},
+where \(R\) denotes the number of sample-level metadata
+features recorded (\citet{Huber2015}). See Figure \ref{fig:seSchema}.
+
+\begin{figure}[h]
+
+{\centering \includegraphics[width=0.6\linewidth]{seSchema} 
+
+}
+
+\caption{Schematic of SummarizedExperiment class structure.  Colored regions of panels within the schematic are linked with command examples in colored text beneath the panels.  For example, the purple command \texttt{subsetByOverlaps(se, roi)} would produce a restricted \texttt{RangedSummarizedExperiment} instance with features limited to those colored purple.  The \texttt{sizeFactors} component is specific to a subclass for single cell data.}\label{fig:seSchema}
+\end{figure}
+
+In the context of R programming, let
+\texttt{K} denote a vector of feature identifiers,
+\texttt{S} denote a vector of sample identifiers.
+The standard subsetting idiom \texttt{X{[}K,S{]}} expresses filtering of
+the all the information in \(Q\) and the associated metadata
+to features \texttt{K} and samples \texttt{S}. A \texttt{GRanges}
+instance (\citet{Lawrence2013}) defining genomic coordinates
+for features may be bound to \texttt{X},
+facilitating queries defined by genomic location (using, for example, \texttt{subsetByOverlaps}) to isolate features
+coincident with or near the elements of a set of query genomic ranges (eg., binding peaks). This outline of genomic data representation
+and analysis is characteristic of Bioconductor.
+
+\subsection{Examples of remote back ends}\label{examples-of-remote-back-ends}
+
+\emph{Google BigQuery}. The Institute for Systems Biology Cancer
+Genomics Cloud project (ISB-CGC) (\citet{ISBCGC}) uses
+Google BigQuery to provide access to
+various public cancer genomics resources including
+TCGA and the PanCancer Atlas (\citet{Hoadley2018}).
+The \texttt{pancan\_SE}
+function of \emph{\href{https://bioconductor.org/packages/3.9/restfulSE}{restfulSE}} constructs queries that derive
+\texttt{SummarizedExperiment} instances using quantifications and annotations
+for PanCancer atlas experiments
+managed in BigQuery tables.
+
+\emph{HDF Scalable Data Service (HSDS)}. An AWS S3-based
+distributed data object model for
+HDF5 datasets, including a
+RESTful API to structure, populate, and query HDF5 archives,
+has been implemented by the HDF Group.
+A number of datasets of interest in bioinformatics
+are served through \href{https://www.hdfgroup.org/solutions/hdf-kita/}{HDF Kita Lab}
+in the \texttt{/shared/bioconductor} folder.
+
+\subsection{Lazy data retrieval via DelayedArray.}\label{lazy-data-retrieval-via-delayedarray.}
+
+The \textit{restfulSE} package provides interfaces to
+BigQuery and HSDS so that
+the numerical content housed in these services
+satisfies the API of the Bioconductor \emph{\href{https://bioconductor.org/packages/3.9/DelayedArray}{DelayedArray}}
+(\citet{Pages2018}).
+Any \texttt{DelayedArray} instance can serve as the \texttt{assay}
+component of a \texttt{SummarizedExperiment} instance. Thus the
+capacities of \texttt{SummarizedExperiment} to bind semantically
+rich metadata to genome-scale assays are extended implicitly to
+data resources for which no standards exist for
+associating substantive metadata.
+
+In conjunction with the \emph{\href{https://bioconductor.org/packages/3.9/rhdf5client}{rhdf5client}} and
+\emph{\href{https://CRAN.R-project.org/package=bigrquery}{bigrquery}} packages,
+\textit{restfulSE} functions translate filtering and selection operations
+which are readily defined using \texttt{rowData}, \texttt{rowRanges},
+\texttt{colData} into formal queries resolvable by the HDF5 and
+BigQuery services. Numerical results are transmitted from
+server to client only when needed.
+
+\section{Results}\label{results}
+
+The RESTful \texttt{SummarizedExperiment} representation
+allows complicated research queries to be obtained in a concise,
+fast, convenient and robust fashion, as illustrated by
+the following examples.
+
+\subsection{Hybrid data/annotation strategy for integrative analysis}\label{hybrid-dataannotation-strategy-for-integrative-analysis}
+
+The following code chunk, which generates
+Figure \ref{fig:pancanPanel}, illustrates the
+use of the \textit{restfulSE} protocol
+with the ISB-CGC BigQuery back end.
+
+\begin{verbatim}
+library(SummarizedExperiment)
+library(BiocOncoTK)       # uses restfulSE for cancer bioinformatics
+bq = pancan_BQ()          # need CGC_BILLING to authenticate
+seCOAD = buildPancanSE(bq, acronym="COAD", assay="RNASeqv2")
+seCOAD = bindMSI(seCOAD)  # update to include MSIsensor scores
+par(mfrow=c(1,2))         # figure layout 
+amap = c("29126"="PD-L1", "925"="CD8A") # entrez:symbol mapping
+bxs <- lapply( c("29126", "925"),       # for genes of interest
+  function(x) boxplot(split(log2(as.numeric(assay( seCOAD[x,]))+1), 
+      seCOAD$msiTest >= 4), names = c("<4", ">=4"), ylab=amap[x],
+      xlab="MSIsensor score")
+  )
+\end{verbatim}
+
+Our interest is in replicating part of
+Figure 5C
+of \citet{Bailey2018}. In that paper, it is shown that
+microsatellite instability (MSI) is associated with
+different expression signatures of immune cell infiltration
+for adenocarcinomas of colon (COAD) and stomach (STAD), and
+uterine corpus endometrial carcinoma (UCEC).
+The MSI scores developed using MSIsensor are found
+in Table S5 of \citet{Ding2018}. These scores are not available
+in BigQuery, but can be combined with the assay data
+using standard R programming, leading to a hybrid
+data/annotation strategy.
+
+Functions in the \emph{\href{https://bioconductor.org/packages/3.9/BiocOncoTK}{BiocOncoTK}}
+package (\citet{bionc}) build on
+\textit{restfulSE} functionality to a) authenticate the
+user to the BigQuery platform, b) select a tumor
+type (COAD) and assay for \emph{\href{https://bioconductor.org/packages/3.9/SummarizedExperiment}{SummarizedExperiment}}
+construction, c) bind Ding et al.'s MSI values as
+sample-level data variable \texttt{msiTest}, d)
+acquire and transform the PD-L1 and CD8A
+(Entrez IDs 29126 and 925)
+expression values, and e) form the stratified boxplot.
+The basic findings of Bailey et al. are replicated.
+Enhancement of the code to produce a display covering
+more genes and tumor types
+is demonstrated in the BiocOncoTK package vignette.
+Note that in this example, expression values are
+only downloaded for the genes requested, without altering
+the end user programming paradigm of working with
+a SummarizedExperiment instance.
+
+\begin{figure}[h]
+
+{\centering \includegraphics{restSE_files/figure-latex/pancanPanel-1} 
+
+}
+
+\caption{Association of MSI sensor scores with distributions of PDL-1 and CD8A in TCGA colorectal adenocarcinoma samples (COAD).}\label{fig:pancanPanel}
+\end{figure}
+
+\subsection{HDF Scalable Data Service}\label{hdf-scalable-data-service}
+
+Figure \ref{fig:hdffig}
+demonstrates use of a RESTful \texttt{SummarizedExperiment},
+with assay data provided
+in the object \texttt{/shared/bioconductor/darmgcls.h5}
+at \texttt{hsdshdflab.hdfgroup.org}. Briefly, as a
+prelude to single-cell RNA-sequencing of glioblastoma (GBM)
+tumors from four patients,
+\citet{Darmanis2017} used immunopanning to increase the
+proportion of non-neoplastic cells that constitute
+the ``migrating front'' of progression of glioblastoma.
+Antibody to CD45 was used to capture microglial cells.
+Figure \ref{fig:hdffig} provides code to compare
+the distribution of CD45 expression among the
+classes of
+cells as labeled in the metadata of GSE84465,
+the NCBI GEO archive from which the quantifications
+were derived. In this example, data on one
+gene from all cells
+is retrieved when the statement defining vector \texttt{vals}
+is executed. The display can be recapitulated for
+other genes by substituting different symbols in
+the statement computing \texttt{ind}.
+The \texttt{DelayedArray} framework leveraged here
+enables basic computations of this kind without loading the
+entire matrix into memory.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(rhdf5client)}
+\KeywordTok{library}\NormalTok{(SummarizedExperiment)}
+\KeywordTok{library}\NormalTok{(ggplot2)}
+\NormalTok{cdar =}\StringTok{ }\NormalTok{BiocOncoTK}\OperatorTok{::}\NormalTok{darmGBMcls}
+\NormalTok{ind =}\StringTok{ }\KeywordTok{match}\NormalTok{(}\StringTok{"PTPRC"}\NormalTok{, }\KeywordTok{rowData}\NormalTok{(cdar)}\OperatorTok{$}\NormalTok{symbol)}
+\NormalTok{var =}\StringTok{ }\KeywordTok{gsub}\NormalTok{(}\StringTok{"selection: "}\NormalTok{, }\StringTok{""}\NormalTok{, }
+\NormalTok{       cdar}\OperatorTok{$}\NormalTok{characteristics_ch1.}\DecValTok{8}\NormalTok{)}
+\NormalTok{vals =}\StringTok{ }\KeywordTok{log10}\NormalTok{(}\KeywordTok{assay}\NormalTok{(cdar[ind,])}\OperatorTok{+}\DecValTok{1}\NormalTok{)}
+\NormalTok{ddd =}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{log10norm=}\NormalTok{vals, }\DataTypeTok{pan=}\NormalTok{var)}
+\KeywordTok{ggplot}\NormalTok{(ddd, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{log10norm, }\DataTypeTok{colour=}\NormalTok{pan)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_density}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{ylim}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{xlab}\NormalTok{(}\StringTok{"log10 CD45+1"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[h]
+
+{\centering \includegraphics{restSE_files/figure-latex/hdffig-1} 
+
+}
+
+\caption{Density estimates for log10 CD45 expression in single-cell RNA-seq studies of glioblastoma.}\label{fig:hdffig}
+\end{figure}
+
+\section{Performance}\label{performance}
+
+We focus on pursuit of reliability,
+expressivity, and scalability using \textit{restfulSE}.
+
+\textbf{Reliability:}
+The \textit{restfulSE}, \textit{rhdf5client}
+and \textit{BiocOncoTK} packages are accompanied by detailed unit
+tests that compare retrievals to known values. In the
+case of BigQuery table queries, the test
+suite composes random queries
+in both BigQuery SQL and in the \texttt{SummarizedExperiment}
+idiom. Results
+are checked for elementwise equality.
+
+\textbf{Expressivity:} The code
+segments for Figures \ref{fig:pancanPanel} and \ref{fig:hdffig} are
+complex but easy to break down. The joining and
+reshaping of pancan-atlas tables in BigQuery corresponding
+to the code in Figure \ref{fig:pancanPanel}
+can be checked through the query history in the BigQuery
+interface. The acquisition of expression values employed
+five nested SELECT statements; the query for assay quantifications
+was 6000 characters in length.
+The R code is less than 500 characters including comments.
+
+\textbf{Scalability.} BigQuery is intrinsically auto-scaling,
+but charges accrue with the amount of data scanned,
+so query design can have effects on throughput
+and cost. We rely on the \textit{bigrquery} (\citet{bigr})
+and \textit{dbplyr} (\citet{dbp}) packages for
+efficient translation of R-oriented data manipulations to
+BigQuery SQL. Throughput with the HDF Scalable Data Service
+is dependent upon the configuration of the object server,
+the relationship of numerical data layout to prevalent access
+patterns, and the degree to which queries capitalize on
+API efficiencies like chunk-based retrieval. For both
+back ends, proper design and deployment of the querying client can
+lead to throughput that scale with client-side resources.
+
+\section{Conclusions}\label{conclusions}
+
+Cloud-scale storage and retrieval strategies are of significant
+interest for genome science.
+The \texttt{Summarized- Experiment} class
+unifies assay data with substantive sample- and experiment-level
+metadata, and its API for managing and interrogating
+genome-scale experiment archives is used in numerous
+analytic packages.
+The \textit{restfulSE} package exposes high-performance
+cloud-resident data stores to users and
+algorithms as \texttt{Summarized- Experiment}s. Continued improvements
+in efficiency of
+representation and query resolution for assay data and metadata
+will help to achieve the potential of a federated data ecosystem for
+enhanced discovery in biology through interactive genome-scale analysis.
+
+\section{Acknowledgments}\label{acknowledgments}
+
+Support for the development of this software was provided by NIH grants
+U01 CA214846 (Carey, PI), U24 CA180996 (Morgan, PI) and
+Chan Zuckerberg Initiative DAF 2018-183436 (Carey, PI).
+
+{\small\bibliography{BioC.bib}}
+
+\end{document}

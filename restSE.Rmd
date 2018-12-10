@@ -121,7 +121,7 @@ accessible by the `rowData` method, and to an $N \times R$ table of sample-level
 where $R$ denotes the number of sample-level metadata
 features recorded (@Huber2015).   See Figure \@ref(fig:seSchema).
 
-```{r seSchema, out.width='60%', fig.cap = 'Schematic of SummarizedExperiment class structure.  The `sizeFactors` component is specific to a subclass for single cell data.',echo=FALSE}
+```{r seSchema, out.width='60%', fig.cap = 'Schematic of SummarizedExperiment class structure.  Colored regions of panels within the schematic are linked with command examples in colored text beneath the panels.  For example, the purple command \\texttt{subsetByOverlaps(se, roi)} would produce a restricted \\texttt{RangedSummarizedExperiment} instance with features limited to those colored purple.  The \\texttt{sizeFactors} component is specific to a subclass for single cell data.',echo=FALSE}
 knitr::include_graphics("seSchema.png")
 ```
 
